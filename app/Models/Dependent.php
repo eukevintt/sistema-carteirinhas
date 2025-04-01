@@ -6,31 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Model
+class Dependent extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'member_id',
-        'dependent_id',
-        'nickname',
-        'photo',
-        'birth_date',
-        'password',
-        'role',
-        'last_login_at'
+        'registration_number',
+        'name'
     ];
 
     protected $casts = [
-        'birth_date' => 'date',
-        'last_login_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime'
-    ];
-
-    protected $hidden = [
-        'password'
     ];
 
     public function member()
@@ -38,8 +27,13 @@ class User extends Model
         return $this->belongsTo(Member::class);
     }
 
-    public function dependent()
+    public function user()
     {
-        return $this->belongsTo(Dependent::class);
+        return $this->hasOne(User::class);
+    }
+
+    public function membershipCards()
+    {
+        return $this->hasMany(MembershipCard::class);
     }
 }

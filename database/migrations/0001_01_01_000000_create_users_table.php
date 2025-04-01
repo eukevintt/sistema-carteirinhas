@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('member_id')->nullable()->constrained('members')->onDelete('cascade');
-            $table->foreignId('dependent_id')->nullable()->constrained('dependents')->onDelete('cascade');
+            $table->foreignId('member_id')->nullable()->unique()->constrained('members')->onDelete('cascade');
+            $table->foreignId('dependent_id')->nullable()->unique()->constrained('dependents')->onDelete('cascade');
             $table->string('nickname')->unique();
             $table->string('photo')->nullable();
             $table->date('birth_date')->nullable();
