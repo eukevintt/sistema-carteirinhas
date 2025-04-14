@@ -8,7 +8,7 @@ use App\Models\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
@@ -30,7 +30,7 @@ class AuthController extends Controller
                 'username.required' => 'O Usuário é obrigatório.',
                 'username.min' => 'O Usuário deve ter pelo menos :min caracteres.',
                 'username.max' => 'O Usuário não pode ter mais de :max caracteres.',
-                'password.required' => 'O Senha é obrigatória.',
+                'password.required' => 'A Senha é obrigatória.',
                 'password.min' => 'A senha deve ter pelo menos :min caracteres.',
                 'password.max' => 'A senha não pode ter mais de :max caracteres.'
             ]
@@ -54,7 +54,7 @@ class AuthController extends Controller
             }
         }
 
-        if (!$user || !password_verify($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return back()->withInput()->with(['invalid_login' => 'Usuário ou Senha inválidos.']);
         }
 
@@ -133,7 +133,7 @@ class AuthController extends Controller
         $user = new User();
         $user->nickname = $request->username;
         $user->birth_date = $request->birth_date;
-        $user->password = bcrypt($request->password);
+        $user->password = Hash::make($request->password);
 
         $dependent = Dependent::where('registration_number', $request->registration_number)->first();
         if ($dependent) {
@@ -150,8 +150,8 @@ class AuthController extends Controller
         if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
             $file = $request->file('photo');
             $filename = time() . '.jpg';
-            $photoPath = 'fotos_perfil/' . $filename;
-            $storagePath = storage_path('app/public/' . $photoPath);
+            $photoPath = 'profile_photos/' . $filename;
+            $storagePath = storage_path('app/' . $photoPath);
 
             $manager = new ImageManager(new Driver());
 
@@ -200,12 +200,12 @@ class AuthController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
 
-        if (!password_verify($request->current_password, $user->password)) {
+        if (!Hash::check($request->current_password, $user->password)) {
             return back()->withInput()->with(['server_error' => 'A senha atual é inválida!.']);
         }
 
         $user->update([
-            'password' => bcrypt($request->new_password)
+            'password' => Hash::make($request->new_password)
         ]);
 
         return redirect()->route('profile')->with(['success' => 'Senha alterada com sucesso!']);
@@ -224,7 +224,7 @@ class AuthController extends Controller
                 'new_password' => 'required|min:5|max:32|confirmed',
             ],
             [
-                'matricula.required' => 'O campo Matrícula é obrigatório.',
+                'registration_number.required' => 'O campo Matrícula é obrigatório.',
                 'new_password.required' => 'A nova senha é obrigatória.',
                 'new_password.min' => 'A nova senha deve conter no mínimo :min caracteres.',
                 'new_password.max' => 'A nova senha deve conter no máximo :max caracteres.',
@@ -233,7 +233,7 @@ class AuthController extends Controller
         );
 
         $registrationNumber = $request->registration_number;
-        $newPassword = bcrypt($request->new_password);
+        $newPassword = Hash::make($request->new_password);
 
         $member = Member::where('registration_number', $registrationNumber)->first();
         if ($member) {
@@ -249,7 +249,7 @@ class AuthController extends Controller
         }
 
         if (empty($user)) {
-            return back()->withInput()->withErrors('registration_number', 'Essa matrícula é inválida ou não possui cadastro.');
+            return back()->withInput()->withErrors(['registration_number' => 'Essa matrícula é inválida ou não possui cadastro.']);
         }
 
         $user->update(['password' => $newPassword]);

@@ -1,59 +1,78 @@
-<x-layouts.layout title="Redefinir Senha - Sistema Petros">
-    <div class="flex flex-col lg:flex-row h-screen w-full bg-white items-center justify-center">
-        <!-- Left side (image) -->
-        <div class="hidden lg:flex w-1/2 h-full">
-            <img src="{{ asset('images/fundo-gremio-petros-login.jpg') }}" alt="Grêmio Petros"
-                class="object-cover w-full h-full" />
+<x-layouts.layout title="Esqueci Minha Senha - Sistema Petros">
+    <div class="h-screen flex flex-row">
+        <div class="hidden lg:block w-2/3 relative overflow-hidden">
+            <img src="{{ asset('images/fundo-gremio-petros-login.jpg') }}"
+                alt="Fundo de Login do Grêmio Petros, uma sala com uma mesa de sinuca e uma televisão"
+                class="object-cover w-full h-full">
         </div>
 
-        <!-- Right side (form) -->
-        <div class="flex items-center justify-center w-full lg:w-1/2">
-            <div class="w-full max-w-lg px-10">
-                <div class="flex flex-col items-center space-y-2 mb-4">
-                    <img src="{{ asset('images/logo.png') }}" class="w-44 md:w-52" alt="Logo">
+        <div class="w-full lg:w-1/3 flex flex-col justify-center px-8 py-10 bg-white">
+            <div class="flex justify-center mb-8">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo do Grêmio Petros" class="w-44">
+            </div>
+
+            <div class="mb-6 flex flex-col items-center">
+                <h1 class="text-3xl font-bold text-gray-800">Esqueci Minha Senha</h1>
+                <p class="text-gray-500 mt-1">Redefina sua senha</p>
+            </div>
+
+            <form action="{{ route('auth.password.reset') }}" method="POST" class="space-y-4">
+                @csrf
+
+                <div class="mb-4">
+                    <label for="registration_number" class="block mb-1 text-sm font-medium text-gray-700">
+                        Matrícula*
+                    </label>
+                    <input type="text" name="registration_number" id="registration_number" required
+                        class="rounded-md w-full py-2 px-3 bg-gray-200 border border-gray-300 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none"
+                        placeholder="Digite sua matrícula">
                 </div>
 
-                <form class="w-full space-y-4">
-                    <div>
-                        <label for="matricula" class="block text-sm font-medium text-gray-700">Matrícula*</label>
-                        <input type="text" id="matricula" name="matricula" placeholder="Digite sua matrícula"
-                            class="mt-1 block w-full rounded-md border border-gray-300 px-4 py-3 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none" />
+                <div class="mb-4">
+                    <label for="new_password" class="block mb-1 text-sm font-medium text-gray-700">
+                        Nova Senha*
+                    </label>
+                    <div class="relative">
+                        <input type="password" name="new_password" id="new_password" required
+                            class="rounded-md w-full py-2 px-3 bg-gray-200 border border-gray-300 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none"
+                            placeholder="Digite a nova senha">
+                        <button type="button" class="absolute inset-y-0 right-3 flex items-center">
+                            <i class="fa-solid fa-eye text-gray-500"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="confirm_password" class="block mb-1 text-sm font-medium text-gray-700">
+                        Confirmar Nova Senha*
+                    </label>
+                    <div class="relative">
+                        <input type="password" name="confirm_password" id="confirm_password" required
+                            class="rounded-md w-full py-2 px-3 bg-gray-200 border border-gray-300 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none"
+                            placeholder="Confirme a nova senha">
+                        <button type="button" class="absolute inset-y-0 right-3 flex items-center">
+                            <i class="fa-solid fa-eye text-gray-500"></i>
+                        </button>
                     </div>
 
-                    <div>
-                        <label for="nova_senha" class="block text-sm font-medium text-gray-700">Nova Senha*</label>
-                        <div class="relative">
-                            <input type="password" id="nova_senha" name="nova_senha" placeholder="Digite a nova senha"
-                                class="mt-1 block w-full rounded-md border border-gray-300 px-4 py-3 pr-12 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none" />
-                            <button type="button" class="absolute inset-y-0 right-3 flex items-center text-gray-500">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
+                </div>
 
-                    <div>
-                        <label for="confirmar_senha" class="block text-sm font-medium text-gray-700">Confirmar Nova
-                            Senha*</label>
-                        <div class="relative">
-                            <input type="password" id="confirmar_senha" name="confirmar_senha"
-                                placeholder="Confirme a nova senha"
-                                class="mt-1 block w-full rounded-md border border-gray-300 px-4 py-3 pr-12 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none" />
-                            <button type="button" class="absolute inset-y-0 right-3 flex items-center text-gray-500">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-
+                <div class="mb-4">
                     <button type="submit"
-                        class="w-full py-3 bg-primary text-white rounded-md hover:bg-[#057391ee] duration-300 cursor-pointer font-semibold text-base">
+                        class="bg-primary text-white w-full py-2 rounded-md hover:bg-primary-300 duration-300 transition-colors cursor-pointer font-semibold text-base">
                         Redefinir Senha
                     </button>
-                </form>
-
-                <div class="mt-6 text-base">
-                    <a href="#" class="text-primary hover:underline"><i
-                            class="fa-solid fa-arrow-left mr-1"></i>Voltar para login</a>
                 </div>
+            </form>
+
+            <div class="text-center">
+                <a href="{{ route('auth.login.form') }}" class="text-primary hover:underline">
+                    <i class="fa-solid fa-arrow-left mr-1"></i>Voltar para login
+                </a>
+            </div>
+
+            <div class="mt-8 text-center text-gray-400 text-xs">
+                <a href="https://aceleraae.com.br/" target="_blank" class="hover:underline">Criado por AceleraAe</a>
             </div>
         </div>
     </div>
