@@ -11,15 +11,15 @@ use App\Http\Controllers\MembershipCardController;
 
 use App\Http\Middleware\CheckAdminOrManagement;
 
-Route::middleware('guest')->name('auth.')->group(function () {
-    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
-    Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 
-    Route::get('/registrar', [AuthController::class, 'showRegistrationForm'])->name('register.form');
-    Route::post('/registrar', [AuthController::class, 'register'])->name('register');
+    Route::get('/registrar', [AuthController::class, 'showRegistrationForm'])->name('auth.register.form');
+    Route::post('/registrar', [AuthController::class, 'register'])->name('auth.register');
 
-    Route::get('/esqueci-minha-senha', [AuthController::class, 'showForgotPasswordForm'])->name('password.forgot.form');
-    Route::post('/esqueci-minha-senha', [AuthController::class, 'resetPassword'])->name('password.reset');
+    Route::get('/esqueci-minha-senha', [AuthController::class, 'showForgotPasswordForm'])->name('auth.password.forgot.form');
+    Route::post('/esqueci-minha-senha', [AuthController::class, 'resetPassword'])->name('auth.password.reset');
 });
 
 Route::middleware('auth')->group(function () {
@@ -35,12 +35,12 @@ Route::middleware('auth')->group(function () {
             Route::get('/novo', [MemberController::class, 'create'])->name('create');
             Route::post('/novo', [MemberController::class, 'store'])->name('store');
 
-            Route::get('/editar/{id}', [MemberController::class, 'edit'])->name('edit');
-            Route::patch('/editar/{id}', [MemberController::class, 'update'])->name('update');
+            Route::get('/editar/{member}', [MemberController::class, 'edit'])->name('edit');
+            Route::patch('/editar/{member}', [MemberController::class, 'update'])->name('update');
 
-            Route::patch('/suspender/{id}', [MemberController::class, 'suspend'])->name('suspend');
-            Route::patch('/reativar/{id}', [MemberController::class, 'reactivate'])->name('reactivate');
-            Route::delete('/deletar/{id}', [MemberController::class, 'destroy'])->name('destroy');
+            Route::patch('/suspender/{member}', [MemberController::class, 'suspend'])->name('suspend');
+            Route::patch('/reativar/{member}', [MemberController::class, 'reactivate'])->name('reactivate');
+            Route::delete('/deletar/{member}', [MemberController::class, 'destroy'])->name('destroy');
         });
 
         Route::prefix('/gestao/dependentes')->name('dependents.')->group(function () {

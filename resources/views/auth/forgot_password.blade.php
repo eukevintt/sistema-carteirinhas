@@ -66,7 +66,7 @@
             </form>
 
             <div class="text-center">
-                <a href="{{ route('auth.login.form') }}" class="text-primary hover:underline">
+                <a href="{{ route('login') }}" class="text-primary hover:underline">
                     <i class="fa-solid fa-arrow-left mr-1"></i>Voltar para login
                 </a>
             </div>

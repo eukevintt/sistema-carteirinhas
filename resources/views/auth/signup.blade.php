@@ -82,7 +82,7 @@
             </form>
 
             <div class="text-center mt-6">
-                <a href="{{ route('auth.login.form') }}" class="text-primary hover:underline">
+                <a href="{{ route('login') }}" class="text-primary hover:underline">
                     <i class="fa-solid fa-arrow-left mr-1"></i> Já tenho conta
                 </a>
             </div>
