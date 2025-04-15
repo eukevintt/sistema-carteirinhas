@@ -59,23 +59,25 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('/gestao/usuarios')->name('users.')->group(function () {
             Route::get('/', [UserController::class, 'index'])->name('index');
-            Route::get('/detalhes/{id}', [UserController::class, 'show'])->name('show');
+            Route::get('/detalhes/{user}', [UserController::class, 'show'])->name('show');
 
             Route::get('/novo', [UserController::class, 'create'])->name('create');
             Route::post('/novo', [UserController::class, 'store'])->name('store');
 
-            Route::get('/editar/{id}', [UserController::class, 'edit'])->name('edit');
-            Route::patch('/editar/{id}', [UserController::class, 'update'])->name('update');
+            Route::get('/editar/{user}', [UserController::class, 'edit'])->name('edit');
+            Route::patch('/editar/{user}', [UserController::class, 'update'])->name('update');
 
-            Route::patch('/suspender/{id}', [UserController::class, 'suspend'])->name('suspend');
-            Route::patch('/reativar/{id}', [UserController::class, 'reactivate'])->name('reactivate');
-            Route::delete('/deletar/{id}', [UserController::class, 'destroy'])->name('destroy');
+            Route::patch('/suspender/{user}', [UserController::class, 'suspend'])->name('suspend');
+            Route::patch('/reativar/{user}', [UserController::class, 'reactivate'])->name('reactivate');
+            Route::delete('/deletar/{user}', [UserController::class, 'destroy'])->name('destroy');
         });
 
         Route::get('/foto-perfil/{user}', [UserController::class, 'getProfilePhoto'])->name('users.photo');
 
         Route::prefix('/gestao/carteirinhas')->name('cards.')->group(function () {
             Route::get('/', [MembershipCardController::class, 'index'])->name('index');
+
+            Route::delete('/deletar/{id}', [MembershipCardController::class, 'destroy'])->name('destroy');
         });
     });
 
