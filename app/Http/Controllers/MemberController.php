@@ -106,9 +106,15 @@ class MemberController extends Controller
             'user' => function ($query) {
                 $query->withTrashed();
             },
+            'membershipCards' => function ($query) {
+                $query->withTrashed();
+            },
             'dependents' => function ($query) {
                 $query->withTrashed()->with([
                     'user' => function ($query) {
+                        $query->withTrashed();
+                    },
+                    'membershipCards' => function ($query) {
                         $query->withTrashed();
                     }
                 ]);
@@ -161,7 +167,7 @@ class MemberController extends Controller
             $dependent->forceDelete();
         });
 
-        if ($member->membershipCards) {
+        if ($member->membershipCards()->exists()) {
             $member->membershipCards()->forceDelete();
             $this->deleteCardFile($member->user->role, $member->user->nickname);
         }
@@ -172,6 +178,8 @@ class MemberController extends Controller
 
         $member->user()->forceDelete();
         $member->forceDelete();
+
+        return redirect()->route('members.index')->with('success', 'O associado, seus dependentes e suas carteirinhas foram deletados com sucesso.');
     }
 
     private function deleteCardFile($role, $nickname)

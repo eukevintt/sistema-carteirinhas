@@ -1,11 +1,11 @@
 <x-layouts.layout title="Cadastro - Sistema Petros">
-    <div class="h-screen flex flex-row">
+    <div class="min-h-screen flex flex-col lg:flex-row">
         <div class="hidden lg:block w-2/3 relative overflow-hidden">
             <img src="{{ asset('images/fundo-gremio-petros-login.jpg') }}" alt="Fundo do Grêmio Petros"
                 class="object-cover w-full h-full">
         </div>
 
-        <div class="w-full lg:w-1/3 flex flex-col justify-center px-8 py-10 bg-white">
+        <div class="w-full lg:w-1/3 flex flex-col justify-center px-8 py-10 bg-white overflow-y-auto">
             <div class="flex justify-center mb-8">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo do Grêmio Petros" class="w-44">
             </div>

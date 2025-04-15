@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
@@ -181,11 +182,17 @@ class AuthController extends Controller
 
     public function updateProfile(Request $request)
     {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
         $request->validate(
             [
                 'current_password' => 'required|min:5|max|32',
                 'new_password' => 'required|min:5|max:32|different:current_password',
                 'new_password_confirmation' => 'required|same:new_password',
+                'photo' => 'required|image|mimes:jpg,jpeg,png',
+                'nickname' => 'required|string|max:255|unique:users,nickname,' . $user->id,
+                'birth_date' => 'required|date',
             ],
             [
                 'current_password.required' => 'A senha atual é obrigatória.',
@@ -196,22 +203,47 @@ class AuthController extends Controller
                 'new_password.max' => 'A nova senha deve conter no máximo :max caracteres.',
                 'new_password.different' => 'A nova senha deve ser diferente da senha atual.',
                 'new_password_confirmation.required' => 'A confirmação da nova senha é obrigatória.',
-                'new_password_confirmation.same' => 'As senhas não conferem.'
+                'new_password_confirmation.same' => 'As senhas não conferem.',
+                'photo.image' => 'O arquivo enviado deve ser uma imagem.',
+                'photo.mimes' => 'A imagem deve estar nos formatos: JPG, JPEG ou PNG.',
             ]
         );
 
-        /** @var \App\Models\User $user */
-        $user = Auth::user();
+        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+
+            if ($user->photo) {
+                $this->deletePhoto($user->photo);
+            }
+
+            $file = $request->file('photo');
+            $filename = time() . '.jpg';
+            $photoPath = 'profile_photos/' . $filename;
+            $storagePath = storage_path('app/' . $photoPath);
+
+            $manager = new ImageManager(new Driver());
+
+            $image = $manager->read($file->getContent());
+
+            $image->cover(472, 472);
+            $image->toJpeg(75)->save($storagePath);
+
+            $user->photo = $photoPath;
+        } else {
+            $photoPath = $user->photo;
+        }
 
         if (!Hash::check($request->current_password, $user->password)) {
             return back()->withInput()->with(['server_error' => 'A senha atual é inválida!.']);
         }
 
         $user->update([
-            'password' => Hash::make($request->new_password)
+            'photo' => $photoPath,
+            'nickname' => $request->nickname,
+            'birth_date' => $request->birth_date,
+            'new_password' => $request->filled('new_password') ? Hash::make($request->new_password) : $user->password
         ]);
 
-        return redirect()->route('profile')->with(['success' => 'Senha alterada com sucesso!']);
+        return redirect()->route('profile')->with(['success' => 'Perfil Alterado com Sucesso!']);
     }
 
     public function showForgotPasswordForm()
@@ -258,5 +290,10 @@ class AuthController extends Controller
         $user->update(['password' => $newPassword]);
 
         return redirect()->route('login')->with('success', 'Senha alterada com sucesso! Você já pode fazer o login.');
+    }
+
+    private function deletePhoto($path)
+    {
+        Storage::disk('profile_photos')->delete($path);
     }
 }

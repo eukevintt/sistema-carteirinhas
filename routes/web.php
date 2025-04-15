@@ -49,10 +49,12 @@ Route::middleware('auth')->group(function () {
             Route::get('/novo', [DependentController::class, 'create'])->name('create');
             Route::post('/novo', [DependentController::class, 'store'])->name('store');
 
-            Route::get('/editar/{id}', [DependentController::class, 'edit'])->name('edit');
-            Route::patch('/editar/{id}', [DependentController::class, 'update'])->name('update');
+            Route::get('/editar/{dependent}', [DependentController::class, 'edit'])->name('edit');
+            Route::patch('/editar/{dependent}', [DependentController::class, 'update'])->name('update');
 
-            Route::delete('/deletar/{id}', [DependentController::class, 'destroy'])->name('destroy');
+            Route::patch('/suspender/{dependent}', [DependentController::class, 'suspend'])->name('suspend');
+            Route::patch('/reativar/{dependent}', [DependentController::class, 'reactivate'])->name('reactivate');
+            Route::delete('/deletar/{dependent}', [DependentController::class, 'destroy'])->name('destroy');
         });
 
         Route::prefix('/gestao/usuarios')->name('users.')->group(function () {
