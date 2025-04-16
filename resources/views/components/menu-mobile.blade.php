@@ -8,5 +8,6 @@
 
     <h1 class="text-lg font-semibold text-gray-700">Carteirinhas</h1>
 
-    <div class="w-8 h-8 rounded-full bg-gray-300"></div>
+    <div class="w-8 h-8"><img src="{{ route('users.photo', ['user' => auth()->user()->id]) }}}}" class="rounded-full"
+            alt=""></div>
 </header>

@@ -392,7 +392,19 @@ class UserController extends Controller
 
     public function getProfilePhoto(User $user)
     {
-        //
+        $auth = auth()->user();
+
+        if ($auth->id !== $user->id && !$auth->role('admin')) {
+            abort(403, 'Acesso não autorizado.');
+        }
+
+        $path = storage_path('app/' . $user->photo);
+
+        if (!file_exists($path)) {
+            abort(404, 'Foto não encontrada.');
+        }
+
+        return response()->file($path);
     }
 
     private function deleteCardFile($role, $nickname)

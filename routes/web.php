@@ -73,14 +73,14 @@ Route::middleware('auth')->group(function () {
             Route::delete('/deletar/{user}', [UserController::class, 'destroy'])->name('destroy');
         });
 
-        Route::get('/foto-perfil/{user}', [UserController::class, 'getProfilePhoto'])->name('users.photo');
-
         Route::prefix('/gestao/carteirinhas')->name('cards.')->group(function () {
             Route::get('/', [MembershipCardController::class, 'index'])->name('index');
 
             Route::delete('/deletar/{id}', [MembershipCardController::class, 'destroy'])->name('destroy');
         });
     });
+
+    Route::get('/foto-perfil/{user}', [UserController::class, 'getProfilePhoto'])->name('users.photo');
 
     Route::prefix('/carteirinha')->name('cards.')->group(function () {
         Route::get('/{id}', [MembershipCardController::class, 'generateForMember'])->name('member.generate');
