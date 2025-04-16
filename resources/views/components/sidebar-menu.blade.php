@@ -2,8 +2,7 @@
 <aside class="hidden md:flex flex-col w-64 bg-white border-r border-gray-200">
     <div class="p-6 border-b border-gray-200">
         <div class="flex items-center space-x-2">
-            <span class="text-sm font-bold text-green-700">BR</span>
-            <span class="text-lg font-bold">Petros</span>
+            <img src="{{ asset('images/logo.png') }}" class="w-full" alt="">
         </div>
     </div>
     <nav class="mt-6">
@@ -33,11 +32,10 @@
         x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full">
         <div class="p-6 border-b border-gray-200 flex items-center justify-between">
             <div class="flex items-center space-x-2">
-                <span class="text-sm font-bold text-green-700">BR</span>
-                <span class="text-lg font-bold">Petros</span>
+                <img src="{{ asset('images/logo.png') }}" alt="">
             </div>
             <button @click="openMenu = false" class="p-2 focus:outline-none">
-                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" stroke-width="2"
+                <svg class="w-6 h-6 text-primary cursor-pointer" fill="none" stroke="currentColor" stroke-width="2"
                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>

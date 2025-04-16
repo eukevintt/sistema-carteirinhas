@@ -66,8 +66,9 @@
                         <input type="password" name="password" id="password" required
                             class="rounded-md w-full py-2 px-3 pr-12 bg-gray-200 border border-gray-300 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none"
                             placeholder="Digite sua senha">
-                        <button type="button" class="absolute inset-y-0 right-3 flex items-center">
-                            <i class="fa-solid fa-eye text-gray-500"></i>
+                        <button type="button" class="absolute inset-y-0 right-3 flex items-center"
+                            onclick="togglePassword('password', 'togglePasswordIcon')">
+                            <i class="fa-solid fa-eye text-gray-500" id="togglePasswordIcon"></i>
                         </button>
                     </div>
 
@@ -85,8 +86,9 @@
                         <input type="password" name="password_confirmation" id="password_confirmation" required
                             class="rounded-md w-full py-2 px-3 pr-12 bg-gray-200 border border-gray-300 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none"
                             placeholder="Confirme sua senha">
-                        <button type="button" class="absolute inset-y-0 right-3 flex items-center">
-                            <i class="fa-solid fa-eye text-gray-500"></i>
+                        <button type="button" class="absolute inset-y-0 right-3 flex items-center"
+                            onclick="togglePassword('password_confirmation', 'togglePasswordIcon1')">
+                            <i class="fa-solid fa-eye text-gray-500" id="togglePasswordIcon1"></i>
                         </button>
                     </div>
 
@@ -101,7 +103,7 @@
                     <label for="photo" class="block mb-1 text-sm font-medium text-gray-700">Foto de Perfil*</label>
                     <input type="file" name="photo" id="photo" accept="image/*" required
                         class="mt-1 block w-full text-sm text-gray-700 border border-gray-300 rounded-md file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-gray-100 file:text-sm file:font-semibold cursor-pointer file:cursor-pointer">
-                    <p class="text-xs text-gray-500 mt-1">OBS: Adicione uma foto em que o seu rosto apareça nitidamente.
+                    <p class="text-xs text-gray-500 mt-1">Adicione uma foto em que o seu rosto apareça nitidamente.
                     </p>
 
                     @error('photo')

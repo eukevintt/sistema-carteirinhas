@@ -42,8 +42,9 @@
                         <input type="password" name="new_password" id="new_password" required
                             class="rounded-md w-full py-2 px-3 bg-gray-200 border border-gray-300 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none"
                             placeholder="Digite a nova senha">
-                        <button type="button" class="absolute inset-y-0 right-3 flex items-center">
-                            <i class="fa-solid fa-eye text-gray-500"></i>
+                        <button type="button" class="absolute inset-y-0 right-3 flex items-center"
+                            onclick="togglePassword('new_password', 'togglePasswordIcon')">
+                            <i class="fa-solid fa-eye text-gray-500" id="togglePasswordIcon"></i>
                         </button>
                     </div>
 
@@ -62,8 +63,9 @@
                         <input type="password" name="new_password_confirmation" id="new_password_confirmation" required
                             class="rounded-md w-full py-2 px-3 bg-gray-200 border border-gray-300 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none"
                             placeholder="Confirme a nova senha">
-                        <button type="button" class="absolute inset-y-0 right-3 flex items-center">
-                            <i class="fa-solid fa-eye text-gray-500"></i>
+                        <button type="button" class="absolute inset-y-0 right-3 flex items-center"
+                            onclick="togglePassword('new_password_confirmation', 'togglePasswordIcon1')">
+                            <i class="fa-solid fa-eye text-gray-500" id="togglePasswordIcon1"></i>
                         </button>
                     </div>
 
