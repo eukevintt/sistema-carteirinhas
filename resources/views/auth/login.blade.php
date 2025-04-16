@@ -16,14 +16,20 @@
                 <p class="text-gray-500 mt-1">Bem-vindo ao Sistema Petros</p>
             </div>
 
-            <form>
+            <form action="{{ route('auth.login') }}" method="POST">
                 @csrf
                 <div class="mb-4">
-                    <label for="email" class="block mb-1 text-sm font-medium text-gray-700">Usuário ou
+                    <label for="username" class="block mb-1 text-sm font-medium text-gray-700">Usuário ou
                         Matrícula</label>
-                    <input type="text" name="email" id="email" required
+                    <input type="text" name="username" id="username" required
                         class="rounded-md w-full py-2 px-3 bg-gray-200 border border-gray-300 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none"
                         placeholder="Digite seu usuário ou matrícula">
+
+                    @error('username')
+                        <div class="text-red-500 text-sm mt-1">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="mb-4">
@@ -37,6 +43,11 @@
                         </button>
                     </div>
 
+                    @error('password')
+                        <div class="text-red-500 text-sm mt-1">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="flex items-center justify-between mb-4">
@@ -56,6 +67,20 @@
                     </button>
                 </div>
             </form>
+
+            @if (session('invalid_login'))
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded text-center mb-3 text-sm">
+                    {!! session('invalid_login') !!}
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div
+                    class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded text-center mb-3 text-sm">
+                    {{ session('success') }}
+                </div>
+            @endif
+
 
             <div class="text-center">
                 <p class="text-sm text-gray-600">

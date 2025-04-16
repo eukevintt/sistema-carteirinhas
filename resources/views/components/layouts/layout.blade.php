@@ -10,10 +10,10 @@
 </head>
 
 <body>
-    <main>
-        {{ $slot }}
-    </main>
+    {{ $slot }}
 
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
     <script src="https://kit.fontawesome.com/dadf90a9a9.js" crossorigin="anonymous"></script>
 </body>
 

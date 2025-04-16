@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dependent;
 use App\Models\Member;
 use App\Models\User;
-
+use App\Rules\RegistrationExists;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -67,7 +67,7 @@ class AuthController extends Controller
         $user->update(['last_login_at' => now()]);
         $request->session()->regenerate();
 
-        return redirect()->intended(route('home'));
+        return redirect()->route('home');
     }
 
     public function logout(Request $request)
@@ -255,15 +255,17 @@ class AuthController extends Controller
     {
         $request->validate(
             [
-                'registration_number' => ['required'],
-                'new_password' => 'required|min:5|max:32|confirmed',
+                'registration_number' => ['required', new RegistrationExists],
+                'new_password' => 'required|min:5|max:32',
+                'new_password_confirmation' => 'required|same:new_password'
             ],
             [
                 'registration_number.required' => 'O campo Matrícula é obrigatório.',
                 'new_password.required' => 'A nova senha é obrigatória.',
                 'new_password.min' => 'A nova senha deve conter no mínimo :min caracteres.',
                 'new_password.max' => 'A nova senha deve conter no máximo :max caracteres.',
-                'new_password.confirmed' => 'As senhas não conferem.'
+                'new_password_confirmation.required' => 'A confirmação da nova senha é obrigatória.',
+                'new_password_confirmation.same' => 'As senhas não conferem.'
             ]
         );
 

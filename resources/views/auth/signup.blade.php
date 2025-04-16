@@ -22,22 +22,42 @@
                     <label for="username" class="block mb-1 text-sm font-medium text-gray-700">Usuário*</label>
                     <input type="text" name="username" id="username" required
                         class="rounded-md w-full py-2 px-3 bg-gray-200 border border-gray-300 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none"
-                        placeholder="Digite seu nome de usuário">
+                        placeholder="Digite seu nome de usuário" value="{{ old('username') }}">
+
+                    @error('username')
+                        <div class="text-red-500 text-sm mt-1">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
                 <div>
-                    <label for="matricula" class="block mb-1 text-sm font-medium text-gray-700">Matrícula*</label>
-                    <input type="text" name="matricula" id="matricula" required
+                    <label for="registration_number"
+                        class="block mb-1 text-sm font-medium text-gray-700">Matrícula*</label>
+                    <input type="text" name="registration_number" id="registration_number" required
                         class="rounded-md w-full py-2 px-3 bg-gray-200 border border-gray-300 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none"
-                        placeholder="Digite sua matrícula">
+                        placeholder="Digite sua matrícula" value="{{ old('registration_number') }}">
                     <p class="text-xs text-gray-500 mt-1">Se não souber sua matrícula, consulte a gerência.</p>
+
+                    @error('registration_number')
+                        <div class="text-red-500 text-sm mt-1">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
                 <div>
-                    <label for="birthdate" class="block mb-1 text-sm font-medium text-gray-700">Data de
+                    <label for="birth_date" class="block mb-1 text-sm font-medium text-gray-700">Data de
                         Nascimento*</label>
-                    <input type="date" name="birthdate" id="birthdate" required
-                        class="rounded-md w-full py-2 px-3 bg-gray-200 border border-gray-300 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none cursor-pointer">
+                    <input type="date" name="birth_date" id="birth_date" required
+                        class="rounded-md w-full py-2 px-3 bg-gray-200 border border-gray-300 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none cursor-pointer"
+                        value="{{ old('birth_date') }}">
+
+                    @error('birth_date')
+                        <div class="text-red-500 text-sm mt-1">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
                 <div>
@@ -50,6 +70,12 @@
                             <i class="fa-solid fa-eye text-gray-500"></i>
                         </button>
                     </div>
+
+                    @error('password')
+                        <div class="text-red-500 text-sm mt-1">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
                 <div>
@@ -63,6 +89,12 @@
                             <i class="fa-solid fa-eye text-gray-500"></i>
                         </button>
                     </div>
+
+                    @error('password_confirmation')
+                        <div class="text-red-500 text-sm mt-1">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
                 <div>
@@ -71,6 +103,12 @@
                         class="mt-1 block w-full text-sm text-gray-700 border border-gray-300 rounded-md file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-gray-100 file:text-sm file:font-semibold cursor-pointer file:cursor-pointer">
                     <p class="text-xs text-gray-500 mt-1">OBS: Adicione uma foto em que o seu rosto apareça nitidamente.
                     </p>
+
+                    @error('photo')
+                        <div class="text-red-500 text-sm mt-1">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
                 <div>

@@ -11,6 +11,7 @@ use App\Http\Controllers\MembershipCardController;
 
 use App\Http\Middleware\CheckAdminOrManagement;
 
+
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
