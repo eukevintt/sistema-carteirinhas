@@ -187,25 +187,29 @@ class AuthController extends Controller
 
         $request->validate(
             [
-                'current_password' => 'required|min:5|max|32',
-                'new_password' => 'required|min:5|max:32|different:current_password',
-                'new_password_confirmation' => 'required|same:new_password',
-                'photo' => 'required|image|mimes:jpg,jpeg,png',
-                'nickname' => 'required|string|max:255|unique:users,nickname,' . $user->id,
-                'birth_date' => 'required|date',
+                'current_password' => 'sometimes|required_with:new_password|min:5|max:32',
+                'new_password' => 'sometimes|required_with:current_password|min:5|max:32|different:current_password',
+                'new_password_confirmation' => 'sometimes|required_with:new_password|same:new_password',
+                'photo' => 'sometimes|image|mimes:jpg,jpeg,png',
+                'nickname' => 'sometimes|string|max:255|unique:users,nickname,' . $user->id,
+                'birth_date' => 'sometimes|date',
             ],
             [
-                'current_password.required' => 'A senha atual é obrigatória.',
+                'current_password.required_with' => 'A senha atual é obrigatória.',
                 'current_password.min' => 'A senha atual deve conter no mínimo :min caracteres.',
                 'current_password.max' => 'A senha atual deve conter no máximo :max caracteres.',
-                'new_password.required' => 'A nova senha é obrigatória.',
+                'new_password.required_with' => 'A nova senha é obrigatória.',
                 'new_password.min' => 'A nova senha deve conter no mínimo :min caracteres.',
                 'new_password.max' => 'A nova senha deve conter no máximo :max caracteres.',
                 'new_password.different' => 'A nova senha deve ser diferente da senha atual.',
-                'new_password_confirmation.required' => 'A confirmação da nova senha é obrigatória.',
+                'new_password_confirmation.required_with' => 'A confirmação da nova senha é obrigatória.',
                 'new_password_confirmation.same' => 'As senhas não conferem.',
                 'photo.image' => 'O arquivo enviado deve ser uma imagem.',
                 'photo.mimes' => 'A imagem deve estar nos formatos: JPG, JPEG ou PNG.',
+                'nickname.string' => 'O campo Usuário deve ser uma string.',
+                'nickname.max' => 'O campo Usuário deve conter no máximo :max caracteres.',
+                'nickname.unique' => 'Esse nickname não pode ser usado.',
+                'birth_date.date' => 'O campo Data de Nascimento deve ser uma data válida.',
             ]
         );
 
@@ -228,22 +232,36 @@ class AuthController extends Controller
             $image->toJpeg(75)->save($storagePath);
 
             $user->photo = $photoPath;
-        } else {
-            $photoPath = $user->photo;
+            $user->save();
+
+            return redirect()->route('profile.view')->with('success_photo', 'Foto de perfil alterada com sucesso!');
         }
 
-        if (!Hash::check($request->current_password, $user->password)) {
-            return back()->withInput()->with(['server_error' => 'A senha atual é inválida!.']);
+        if ($request->has('new_password') && $request->has('current_password')) {
+            if (!Hash::check($request->current_password, $user->password)) {
+                return redirect()->route('profile.view')->withErrors(['current_password' => 'A senha atual é inválida!']);
+            }
+
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+
+            return redirect()->route('profile.view')->with('success_password', 'Senha alterada com sucesso!');
         }
 
-        $user->update([
-            'photo' => $photoPath,
-            'nickname' => $request->nickname,
-            'birth_date' => $request->birth_date,
-            'new_password' => $request->filled('new_password') ? Hash::make($request->new_password) : $user->password
-        ]);
+        if ($request->has('nickname') || $request->has('birth_date')) {
 
-        return redirect()->route('profile')->with(['success' => 'Perfil Alterado com Sucesso!']);
+            if ($request->filled('nickname')) {
+                $user->nickname = $request->nickname;
+            }
+
+            if ($request->filled('birth_date')) {
+                $user->birth_date = $request->birth_date;
+            }
+
+            $user->save();
+
+            return redirect()->route('profile.view')->with('success_info', 'Informações Pessoais alterada com sucesso!');
+        }
     }
 
     public function showForgotPasswordForm()
@@ -296,6 +314,6 @@ class AuthController extends Controller
 
     private function deletePhoto($path)
     {
-        Storage::disk('profile_photos')->delete($path);
+        Storage::delete($path);
     }
 }

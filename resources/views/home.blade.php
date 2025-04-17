@@ -8,13 +8,8 @@
             <x-menu-mobile />
 
             <main class="p-6 flex-1">
-                <div class="hidden md:flex items-center justify-between">
-                    <h1 class="text-2xl font-semibold">Sistema de Carteirinhas</h1>
-                    <div class="w-10 h-10">
-                        <img src="{{ route('users.photo', ['user' => auth()->user()->id]) }}" class="rounded-full"
-                            alt="">
-                    </div>
-                </div>
+
+                <x-profile-photo-menu h1="Sistema de Carteirinhas" />
 
                 <div class="mt-6 flex flex-col items-start space-y-3">
                     <h2 class="text-xl font-semibold">Bem-vindo!</h2>

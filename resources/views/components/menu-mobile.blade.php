@@ -8,6 +8,15 @@
 
     <h1 class="text-lg font-semibold text-gray-700">Carteirinhas</h1>
 
-    <div class="w-8 h-8"><img src="{{ route('users.photo', ['user' => auth()->user()->id]) }}}}" class="rounded-full"
-            alt=""></div>
+    <a href="{{ route('profile.view') }}">
+        <div class="flex items-center space-x-2">
+            <img src="{{ route('users.photo', ['user' => auth()->user()->id]) }}"
+                class="w-8 h-8 rounded-full object-cover" alt="Foto do usuário">
+
+            <p class="text-sm font-medium">{{ Auth::user()->nickname }}</p>
+
+            <i class="fa-solid fa-chevron-right text-sm"></i>
+        </div>
+    </a>
+
 </header>

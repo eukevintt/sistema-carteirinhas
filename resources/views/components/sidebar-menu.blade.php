@@ -2,7 +2,7 @@
 <aside class="hidden md:flex flex-col w-64 bg-white border-r border-gray-200">
     <div class="p-6 border-b border-gray-200">
         <div class="flex items-center space-x-2">
-            <img src="{{ asset('images/logo.png') }}" class="w-full" alt="">
+            <a href="{{ route('home') }}"><img src="{{ asset('images/logo.png') }}" class="w-full" alt=""></a>
         </div>
     </div>
     <nav class="mt-6">
@@ -32,7 +32,7 @@
         x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full">
         <div class="p-6 border-b border-gray-200 flex items-center justify-between">
             <div class="flex items-center space-x-2">
-                <img src="{{ asset('images/logo.png') }}" alt="">
+                <a href="{{ route('home') }}"><img src="{{ asset('images/logo.png') }}" alt=""></a>
             </div>
             <button @click="openMenu = false" class="p-2 focus:outline-none">
                 <svg class="w-6 h-6 text-primary cursor-pointer" fill="none" stroke="currentColor" stroke-width="2"
