@@ -14,3 +14,19 @@
     --color-primary-300: #057391e7;
     --color-border: #05739128;
 }
+
+[data-accordion] button[aria-expanded="true"] {
+    @apply bg-primary text-white;
+}
+
+[data-accordion] button[aria-expanded="false"] {
+    @apply bg-primary text-white;
+}
+
+[data-tabs-toggle] button[aria-selected="true"] {
+    @apply text-primary border-primary cursor-pointer;
+}
+
+[data-tabs-toggle] button[aria-selected="false"] {
+    @apply cursor-pointer hover:text-primary hover:border-primary;
+}

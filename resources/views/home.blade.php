@@ -5,7 +5,7 @@
 
         <div class="flex-1 flex flex-col relative">
 
-            <x-menu-mobile />
+            <x-menu-mobile menuTitle="Página Inicial" />
 
             <main class="p-6 flex-1">
 

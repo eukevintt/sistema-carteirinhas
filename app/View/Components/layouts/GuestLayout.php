@@ -1,17 +1,17 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\layouts;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class MenuMobile extends Component
+class GuestLayout extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public string $menuTitle)
+    public function __construct(public string $title)
     {
         //
     }
@@ -21,6 +21,6 @@ class MenuMobile extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.menu-mobile');
+        return view('components.layouts.guest-layout');
     }
 }

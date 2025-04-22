@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DependentExport;
 use App\Models\Dependent;
 use App\Models\Member;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DependentController extends Controller
 {
     public function index()
     {
         $dependents = Dependent::all();
-        $membersWithDependents = Member::whereHas('dependents')->with('dependents')->orderBy('name')->get();
+        $inactiveDependents = Dependent::onlyTrashed()->orderBy('name')->get();
+        $membersWithDependents = Member::whereHas('dependents')->with('dependents')->orderBy('name')->paginate(10);
 
-        return view('dependents.index', compact('dependents', 'membersWithDependents'));
+        return view('dependents.index', compact('dependents', 'membersWithDependents', 'inactiveDependents'));
     }
 
     public function create()
@@ -170,5 +174,30 @@ class DependentController extends Controller
     private function deletePhoto($path)
     {
         Storage::disk('profile_photos')->delete($path);
+    }
+
+    public function exportPDF()
+    {
+        $dependents = Dependent::with('member')->get();
+
+        $pdf = Pdf::loadView('dependents.pdf-export', compact('dependents'));
+        return $pdf->download('dependentes.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new DependentExport, 'dependentes.xlsx');
+    }
+
+    public function exportCSV()
+    {
+        return Excel::download(new DependentExport, 'dependentes.csv');
+    }
+
+    public function print()
+    {
+        $dependents = Dependent::with('member')->get();
+
+        return view('dependents.pdf-export', compact('dependents'));
     }
 }

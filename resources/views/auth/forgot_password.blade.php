@@ -1,4 +1,4 @@
-<x-layouts.layout title="Esqueci Minha Senha - Sistema Petros">
+<x-layouts.guest-layout title="Esqueci Minha Senha - Sistema Petros">
     <div class="min-h-screen flex flex-col lg:flex-row">
         <div class="hidden lg:block w-2/3 relative overflow-hidden">
             <img src="{{ asset('images/fundo-gremio-petros-login.jpg') }}"
@@ -96,4 +96,4 @@
             </div>
         </div>
     </div>
-</x-layouts.layout>
+</x-layouts.guest-layout>

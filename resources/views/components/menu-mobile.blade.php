@@ -6,7 +6,7 @@
         </svg>
     </button>
 
-    <h1 class="text-lg font-semibold text-gray-700">Carteirinhas</h1>
+    <h1 class="text-lg font-semibold text-gray-700">{{ $menuTitle }}</h1>
 
     <a href="{{ route('profile.view') }}">
         <div class="flex items-center space-x-2">

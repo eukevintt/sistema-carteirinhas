@@ -5,7 +5,7 @@
 
         <div class="flex-1 flex flex-col relative">
 
-            <x-menu-mobile />
+            <x-menu-mobile menuTitle="Perfil" />
 
             <main class="p-6 flex-1">
                 <x-profile-photo-menu h1="Perfil do Usuário" />

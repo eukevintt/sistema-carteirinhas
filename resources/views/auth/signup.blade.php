@@ -1,4 +1,4 @@
-<x-layouts.layout title="Cadastro - Sistema Petros">
+<x-layouts.guest-layout title="Cadastro - Sistema Petros">
     <div class="min-h-screen flex flex-col lg:flex-row">
         <div class="hidden lg:block w-2/3 relative overflow-hidden">
             <img src="{{ asset('images/fundo-gremio-petros-login.jpg') }}" alt="Fundo do Grêmio Petros"
@@ -132,4 +132,4 @@
             </div>
         </div>
     </div>
-</x-layouts.layout>
+</x-layouts.guest-layout>
