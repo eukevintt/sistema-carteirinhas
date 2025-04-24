@@ -14,7 +14,7 @@ $(document).ready(function () {
     console.log('Select2 ready?', typeof $.fn.select2); // debug
     $('.select2').select2({
         theme: 'tailwindcss-4',
-        placeholder: 'Selecione um associado',
+        placeholder: 'Selecione uma opção.',
         allowClear: true,
         width: '100%',
         language: {

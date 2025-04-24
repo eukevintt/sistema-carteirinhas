@@ -10,10 +10,10 @@
                 <div class="space-y-6">
 
                     <div class="flex flex-col md:flex-row md:justify-start md:items-center gap-4">
-                        <button type="button"
+                        <a href="{{ route('dependents.create') }}" type="button"
                             class="bg-primary hover:bg-primary-300 text-white font-medium px-6 py-3 rounded cursor-pointer">
                             Adicionar Dependente
-                        </button>
+                        </a>
                     </div>
 
                     <div>
@@ -146,7 +146,8 @@
                                 @endif
                             </div>
 
-                            <div id="inativos" class="hidden p-4 bg-white rounded-b-lg transition-opacity duration-300"
+                            <div id="inativos"
+                                class="hidden p-4 bg-white rounded-b-lg transition-opacity duration-300"
                                 role="tabpanel" aria-labelledby="tab-inativos">
                                 @if ($inactiveDependents->isEmpty())
                                     <p class="text-gray-600">Nenhum dependente inativo.</p>
