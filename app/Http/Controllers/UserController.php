@@ -394,7 +394,7 @@ class UserController extends Controller
     {
         $auth = auth()->user();
 
-        if ($auth->id !== $user->id && !$auth->role('admin')) {
+        if ($auth->id !== $user->id && !Gate::allows('admin') && !Gate::allows('management')) {
             abort(403, 'Acesso não autorizado.');
         }
 

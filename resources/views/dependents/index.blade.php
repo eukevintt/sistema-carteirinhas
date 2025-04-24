@@ -17,7 +17,8 @@
                     </div>
 
                     <div>
-                        <ul class="flex border-b border-gray-200" role="tablist" data-tabs-toggle="#tabs-content">
+                        <ul class="flex border-b border-gray-200 justify-center md:justify-normal" role="tablist"
+                            data-tabs-toggle="#tabs-content">
                             <li class="mr-2" role="presentation">
                                 <button id="tab-ativos"
                                     class="inline-block px-4 py-2 font-medium text-primary border-b-2 border-blue-600"
@@ -40,7 +41,7 @@
                             <div id="ativos" class="p-4 bg-white rounded-b-lg transition-opacity duration-300"
                                 role="tabpanel" aria-labelledby="tab-ativos">
 
-                                <div class="flex flex-wrap gap-3 mb-6">
+                                <div class="grid grid-cols-2 gap-3 mb-6 md:flex md:flex-wrap md:gap-3">
                                     <a href="{{ route('dependents.export.pdf') }}"
                                         class="flex items-center bg-white border border-gray-300 rounded px-4 py-2 hover:bg-primary hover:text-white duration-400 cursor-pointer">
                                         <i class="fa-solid fa-file-pdf mr-1"></i>
@@ -105,25 +106,29 @@
                                                                     {{ $dependent->registration_number }}
                                                                 </td>
                                                                 <td class="py-2 flex space-x-3">
-                                                                    <button class="text-gray-600 hover:text-gray-800">
+                                                                    <a href="{{ route('dependents.edit', $dependent->id) }}"
+                                                                        title="Editar"
+                                                                        class="text-gray-600 hover:text-gray-800">
                                                                         <i class="fa-solid fa-pencil"></i>
-                                                                    </button>
-                                                                    <button data-id="{{ $dependent->id }}"
+                                                                    </a>
+                                                                    <button title="Suspender"
+                                                                        data-id="{{ $dependent->id }}"
                                                                         data-name="{{ $dependent->name }}"
                                                                         data-act="suspend"
                                                                         data-url-base="{{ route('dependents.suspend', $dependent->id) }}"
                                                                         data-modal-target="popup-modal-suspend"
                                                                         data-modal-toggle="popup-modal-suspend"
-                                                                        class="text-gray-600 hover:text-gray-800 open-modal">
+                                                                        class="text-gray-600 hover:text-gray-800 open-modal cursor-pointer">
                                                                         <i class="fa-solid fa-user-slash"></i>
                                                                     </button>
-                                                                    <button data-id="{{ $dependent->id }}"
+                                                                    <button title="Excluir"
+                                                                        data-id="{{ $dependent->id }}"
                                                                         data-name="{{ $dependent->name }}"
                                                                         data-act="delete"
                                                                         data-url-base="{{ route('dependents.destroy', $dependent->id) }}"
                                                                         data-modal-target="popup-modal-delete"
                                                                         data-modal-toggle="popup-modal-delete"
-                                                                        class="text-gray-600 hover:text-gray-800 open-modal">
+                                                                        class="text-gray-600 hover:text-gray-800 open-modal cursor-pointer">
                                                                         <i class="fa-solid fa-trash"></i>
                                                                     </button>
                                                                 </td>
@@ -166,19 +171,20 @@
                                                             method="POST">
                                                             @csrf
                                                             @method('PATCH')
-                                                            <button type="submit"
-                                                                class="text-gray-600 hover:text-gray-800">
+                                                            <button title="Reativar" type="submit"
+                                                                class="text-gray-600 hover:text-gray-800 cursor-pointer">
                                                                 <i class="fa-solid fa-undo"></i>
                                                             </button>
                                                         </form>
 
-                                                        <button data-id="{{ $inactiveDependent->id }}"
+                                                        <button title="Excluir"
+                                                            data-id="{{ $inactiveDependent->id }}"
                                                             data-name="{{ $inactiveDependent->name }}"
                                                             data-act="delete"
                                                             data-url-base="{{ route('dependents.destroy', $inactiveDependent->id) }}"
                                                             data-modal-target="popup-modal-delete"
                                                             data-modal-toggle="popup-modal-delete"
-                                                            class="text-gray-600 hover:text-gray-800 open-modal">
+                                                            class="text-gray-600 hover:text-gray-800 open-modal cursor-pointer">
                                                             <i class="fa-solid fa-trash"></i>
                                                         </button>
                                                     </td>

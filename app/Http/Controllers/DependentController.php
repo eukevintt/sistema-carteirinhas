@@ -7,7 +7,9 @@ use App\Models\Dependent;
 use App\Models\Member;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
 class DependentController extends Controller
@@ -78,7 +80,11 @@ class DependentController extends Controller
         $request->validate(
             [
                 'name' => 'required|string|max:255',
-                'registration_number' => 'required|string|max:255|unique:dependents,registration_number,' . $dependent->id,
+                'registration_number' => ['required', 'string', 'max:255', Rule::unique('dependents', 'registration_number')->ignore($dependent->id), function ($attribute, $value, $fail) {
+                    if (DB::table('members')->where('registration_number', $value)->exists()) {
+                        $fail('Essa matrícula já está em uso.');
+                    }
+                }],
                 'member_id' => 'required|exists:members,id',
             ],
             [
@@ -102,7 +108,7 @@ class DependentController extends Controller
             ]
         );
 
-        return redirect()->route('dependents.index')->with('success', 'Dependente atualizado com sucesso!');
+        return redirect()->route('dependents.edit', $dependent->id)->with('success', 'Dependente atualizado com sucesso!');
     }
 
     public function suspend(Dependent $dependent)

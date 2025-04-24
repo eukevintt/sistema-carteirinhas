@@ -23,7 +23,7 @@
                                 <p class="text-lg font-semibold">{{ Auth::user()->dependent->name }}</p>
                                 <p class="text-gray-600">Matrícula: {{ Auth::user()->dependent->registration_number }}
                                 </p>
-                                <p class="text-gray-600">Dependete de {{ Auth::user()->dependent->member->name }}</p>
+                                <p class="text-gray-600">Dependente de {{ Auth::user()->dependent->member->name }}</p>
                             @else
                                 <p class="text-lg font-semibold">{{ Auth::user()->nickname }}</p>
                                 <p class="text-gray-600">Matrícula: Sem matrícula</p>
@@ -43,7 +43,7 @@
 
                             <div class="relative">
                                 <input id="current_password" name="current_password" type="password"
-                                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500">
+                                    class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none">
 
                                 <button type="button" class="absolute inset-y-0 right-3 flex items-center"
                                     onclick="togglePassword('current_password', 'togglePasswordIcon')">
@@ -63,7 +63,7 @@
 
                                 <div class="relative">
                                     <input id="new_password" name="new_password" type="password"
-                                        class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500">
+                                        class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none">
 
                                     <button type="button" class="absolute inset-y-0 right-3 flex items-center"
                                         onclick="togglePassword('new_password', 'togglePasswordIcon1')">
@@ -84,7 +84,7 @@
                                 <div class="relative">
                                     <input id="new_password_confirmation" name="new_password_confirmation"
                                         type="password"
-                                        class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500">
+                                        class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none">
 
                                     <button type="button" class="absolute inset-y-0 right-3 flex items-center"
                                         onclick="togglePassword('new_password_confirmation', 'togglePasswordIcon2')">
@@ -131,7 +131,7 @@
                                 @enderror
                                 <label class="w-full max-w-xs cursor-pointer mb-4">
                                     <input type="file" name="photo" id="photo" accept="image/*" required
-                                        class="mt-1 block w-full text-sm text-gray-700 border border-gray-300 rounded-md file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-gray-100 file:text-sm file:font-semibold cursor-pointer file:cursor-pointer">
+                                        class="mt-1 block w-full text-sm text-gray-700 border border-gray-300 rounded-md file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-gray-100 file:text-sm file:font-semibold cursor-pointer file:cursor-pointer focus:ring-2 focus:ring-primary focus:outline-none">
                                 </label>
                                 <button type="submit"
                                     class="bg-primary duration-200 hover:bg-primary-300 text-white px-6 py-3 rounded cursor-pointer">
@@ -158,7 +158,7 @@
                                     class="block text-sm font-medium text-gray-700 mb-1">Usuário</label>
                                 <input id="nickname" name="nickname" type="text"
                                     value="{{ old('nickname', Auth::user()->nickname) }}"
-                                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500">
+                                    class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none">
 
                                 @error('nickname')
                                     <div class="text-red-500 text-sm mt-1">
@@ -171,7 +171,7 @@
                                     nascimento</label>
                                 <input id="birth_date" name="birth_date" type="date"
                                     value="{{ old('birth_date', Auth::user()->birth_date ? Auth::user()->birth_date->format('Y-m-d') : '') }}"
-                                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500">
+                                    class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none">
 
                                 @error('birth_date')
                                     <div class="text-red-500 text-sm mt-1">

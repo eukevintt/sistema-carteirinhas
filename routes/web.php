@@ -51,7 +51,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/novo', [DependentController::class, 'store'])->name('store');
 
             Route::get('/editar/{dependent}', [DependentController::class, 'edit'])->name('edit');
-            Route::patch('/editar/{dependent}', [DependentController::class, 'update'])->name('update');
+            Route::put('/editar/{dependent}', [DependentController::class, 'update'])->name('update');
 
             Route::get('/exportar/pdf', [DependentController::class, 'exportPDF'])->name('export.pdf');
             Route::get('/exportar/excel', [DependentController::class, 'exportExcel'])->name('export.excel');
