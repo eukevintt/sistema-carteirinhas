@@ -108,10 +108,22 @@
                                                                     <button class="text-gray-600 hover:text-gray-800">
                                                                         <i class="fa-solid fa-pencil"></i>
                                                                     </button>
-                                                                    <button class="text-gray-600 hover:text-gray-800">
+                                                                    <button data-id="{{ $dependent->id }}"
+                                                                        data-name="{{ $dependent->name }}"
+                                                                        data-act="suspend"
+                                                                        data-url-base="{{ route('dependents.suspend', $dependent->id) }}"
+                                                                        data-modal-target="popup-modal-suspend"
+                                                                        data-modal-toggle="popup-modal-suspend"
+                                                                        class="text-gray-600 hover:text-gray-800 open-modal">
                                                                         <i class="fa-solid fa-user-slash"></i>
                                                                     </button>
-                                                                    <button class="text-gray-600 hover:text-gray-800">
+                                                                    <button data-id="{{ $dependent->id }}"
+                                                                        data-name="{{ $dependent->name }}"
+                                                                        data-act="delete"
+                                                                        data-url-base="{{ route('dependents.destroy', $dependent->id) }}"
+                                                                        data-modal-target="popup-modal-delete"
+                                                                        data-modal-toggle="popup-modal-delete"
+                                                                        class="text-gray-600 hover:text-gray-800 open-modal">
                                                                         <i class="fa-solid fa-trash"></i>
                                                                     </button>
                                                                 </td>
@@ -119,10 +131,13 @@
                                                         @endforeach
                                                     </tbody>
                                                 </table>
+
                                             </div>
                                         @endforeach
                                     </div>
-                                    {{ $membersWithDependents->links() }}
+                                    <div class="mt-3">
+                                        {{ $membersWithDependents->links() }}
+                                    </div>
                                 @endif
                             </div>
 
@@ -140,16 +155,30 @@
                                             </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-100">
-                                            @foreach ($inactiveDependents as $Inactivedependent)
+                                            @foreach ($inactiveDependents as $inactiveDependent)
                                                 <tr>
-                                                    <td class="py-2">{{ $Inactivedependent->name }}</td>
-                                                    <td class="py-2">{{ $Inactivedependent->registration_number }}
+                                                    <td class="py-2">{{ $inactiveDependent->name }}</td>
+                                                    <td class="py-2">{{ $inactiveDependent->registration_number }}
                                                     </td>
                                                     <td class="py-2 flex space-x-3">
-                                                        <button class="text-gray-600 hover:text-gray-800">
-                                                            <i class="fa-solid fa-undo"></i>
-                                                        </button>
-                                                        <button class="text-gray-600 hover:text-gray-800">
+                                                        <form
+                                                            action="{{ route('dependents.reactivate', $inactiveDependent->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <button type="submit"
+                                                                class="text-gray-600 hover:text-gray-800">
+                                                                <i class="fa-solid fa-undo"></i>
+                                                            </button>
+                                                        </form>
+
+                                                        <button data-id="{{ $inactiveDependent->id }}"
+                                                            data-name="{{ $inactiveDependent->name }}"
+                                                            data-act="delete"
+                                                            data-url-base="{{ route('dependents.destroy', $inactiveDependent->id) }}"
+                                                            data-modal-target="popup-modal-delete"
+                                                            data-modal-toggle="popup-modal-delete"
+                                                            class="text-gray-600 hover:text-gray-800 open-modal">
                                                             <i class="fa-solid fa-trash"></i>
                                                         </button>
                                                     </td>
@@ -163,7 +192,9 @@
                         </div>
                     </div>
                 </div>
-
             </main>
 
+
+            <x-modal-confirmation titleModal="Você tem certeza que deseja suspender" act="suspend" />
+            <x-modal-confirmation titleModal="Você tem certeza que deseja deletar" act="delete" />
 </x-layouts.layout>

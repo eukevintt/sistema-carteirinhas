@@ -14,7 +14,7 @@ class DependentController extends Controller
 {
     public function index()
     {
-        $dependents = Dependent::all();
+        $dependents = Dependent::paginate(10);
         $inactiveDependents = Dependent::onlyTrashed()->orderBy('name')->get();
         $membersWithDependents = Member::whereHas('dependents')->with('dependents')->orderBy('name')->paginate(10);
 
@@ -173,7 +173,7 @@ class DependentController extends Controller
 
     private function deletePhoto($path)
     {
-        Storage::disk('profile_photos')->delete($path);
+        Storage::delete($path);
     }
 
     public function exportPDF()
