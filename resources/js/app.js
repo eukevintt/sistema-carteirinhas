@@ -11,7 +11,6 @@ import "/node_modules/select2/dist/css/select2.css";
 import 'select2-tailwindcss-v4-theme/dist/select2-tailwindcss-theme.min.css';
 
 $(document).ready(function () {
-    console.log('Select2 ready?', typeof $.fn.select2); // debug
     $('.select2').select2({
         theme: 'tailwindcss-4',
         placeholder: 'Selecione uma opção.',
@@ -25,3 +24,21 @@ $(document).ready(function () {
     });
 });
 
+import { DataTable } from "simple-datatables";
+
+
+new DataTable(table, {
+    perPage: 10,
+    perPageSelect: [5, 10, 25, 50],
+    labels: {
+        placeholder: "Buscar...",
+        perPage: "registros por página",
+        noRows: "Nenhum resultado encontrado",
+        info: "Mostrando {start} a {end} de {rows} registros"
+    },
+    classes: {
+         input: "border border-primary focus:ring focus:ring-primary datatable-input",
+         dropdown: "focus:ring focus:ring-red-500 datatable-dropdown",
+    },
+    firstLast: false,
+});

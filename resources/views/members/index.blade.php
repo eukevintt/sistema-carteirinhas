@@ -44,24 +44,50 @@
                                 @if ($activeMembers->isEmpty())
                                     <p class="text-gray-600">Nenhum associado ativo.</p>
                                 @else
-                                    <table class="w-full text-sm text-gray-700" id="table">
+                                    <div class="grid grid-cols-2 gap-3 mb-6 md:flex md:flex-wrap md:gap-3">
+                                        <a href="{{ route('members.export.pdf') }}"
+                                            class="flex items-center bg-white border border-gray-300 rounded px-4 py-2 hover:bg-primary hover:text-white duration-400 cursor-pointer">
+                                            <i class="fa-solid fa-file-pdf mr-1"></i>
+                                            Gerar PDF
+                                        </a>
+                                        <a href="{{ route('members.export.excel') }}"
+                                            class="flex items-center bg-white border border-gray-300 rounded px-4 py-2 hover:bg-primary hover:text-white duration-400 cursor-pointer">
+                                            <i class="fa-solid fa-file-excel mr-1"></i>
+                                            Gerar Excel
+                                        </a>
+                                        <a href="{{ route('members.export.csv') }}"
+                                            class="flex items-center bg-white border border-gray-300 rounded px-4 py-2 hover:bg-primary hover:text-white duration-400 cursor-pointer">
+                                            <i class="fa-solid fa-file-csv mr-1"></i>
+                                            Gerar CSV
+                                        </a>
+                                        <a href="{{ route('members.print') }}"
+                                            class="flex items-center bg-white border border-gray-300 rounded px-4 py-2 hover:bg-primary hover:text-white duration-400 cursor-pointer">
+                                            <i class="fa-solid fa-print mr-1"></i>
+                                            Imprimir
+                                        </a>
+                                    </div>
+
+                                    <table id="table">
                                         <thead>
-                                            <tr class="border-b">
-                                                <th class="py-2 text-left">Nome</th>
-                                                <th class="py-2 text-left">Matrícula</th>
-                                                <th class="py-2 text-left">Ações</th>
+                                            <tr>
+                                                <th class="py-2 text-left bg-primary text-white rounded-s-lg">
+                                                    Nome</th>
+                                                <th class="py-2 text-left bg-primary text-white ">
+                                                    Matrícula</th>
+                                                <th class="py-2 text-left bg-primary rounded-e-lg text-white">Ações</th>
                                             </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-100">
                                             @foreach ($activeMembers as $member)
                                                 <tr>
-                                                    <td class="py-2">{{ $member->name }}</td>
-                                                    <td class="py-2">
+                                                    <td class="py-2 text-gray-700">{{ $member->name }}</td>
+                                                    <td class="py-2 text-gray-700">
                                                         {{ $member->registration_number }}
                                                     </td>
                                                     <td class="py-2 flex space-x-3">
                                                         <a href="{{ route('members.edit', $member->id) }}"
-                                                            title="Editar" class="text-gray-600 hover:text-gray-800">
+                                                            title="Editar"
+                                                            class="text-gray-700 duration-200 hover:text-gray-900">
                                                             <i class="fa-solid fa-pencil"></i>
                                                         </a>
                                                         <button title="Suspender" data-id="{{ $member->id }}"
@@ -69,7 +95,7 @@
                                                             data-url-base="{{ route('members.suspend', $member->id) }}"
                                                             data-modal-target="popup-modal-suspend"
                                                             data-modal-toggle="popup-modal-suspend"
-                                                            class="text-gray-600 hover:text-gray-800 open-modal cursor-pointer">
+                                                            class="text-gray-700 duration-200 hover:text-gray-900 open-modal cursor-pointer">
                                                             <i class="fa-solid fa-user-slash"></i>
                                                         </button>
                                                         <button title="Excluir" data-id="{{ $member->id }}"
@@ -77,7 +103,7 @@
                                                             data-url-base="{{ route('members.destroy', $member->id) }}"
                                                             data-modal-target="popup-modal-delete"
                                                             data-modal-toggle="popup-modal-delete"
-                                                            class="text-gray-600 hover:text-gray-800 open-modal cursor-pointer">
+                                                            class="text-gray-700 duration-200 hover:text-gray-900 open-modal cursor-pointer">
                                                             <i class="fa-solid fa-trash"></i>
                                                         </button>
                                                     </td>

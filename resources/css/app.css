@@ -35,3 +35,12 @@
 [data-tabs-toggle] button[aria-selected="false"] {
     @apply cursor-pointer hover:text-primary hover:border-primary;
 }
+
+th .datatable-sorter {
+    @apply hover:text-slate-200 cursor-pointer;
+}
+
+th.datatable-ascending .datatable-sorter,
+th.datatable-descending .datatable-sorter {
+    @apply text-slate-200;
+}

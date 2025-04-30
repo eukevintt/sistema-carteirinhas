@@ -39,6 +39,11 @@ Route::middleware('auth')->group(function () {
             Route::get('/editar/{member}', [MemberController::class, 'edit'])->name('edit');
             Route::patch('/editar/{member}', [MemberController::class, 'update'])->name('update');
 
+            Route::get('/exportar/pdf', [MemberController::class, 'exportPDF'])->name('export.pdf');
+            Route::get('/exportar/excel', [MemberController::class, 'exportExcel'])->name('export.excel');
+            Route::get('/exportar/csv', [MemberController::class, 'exportCSV'])->name('export.csv');
+            Route::get('/imprimir', [MemberController::class, 'print'])->name('print');
+
             Route::patch('/suspender/{member}', [MemberController::class, 'suspend'])->name('suspend');
             Route::patch('/reativar/{member}', [MemberController::class, 'reactivate'])->name('reactivate');
             Route::delete('/deletar/{member}', [MemberController::class, 'destroy'])->name('destroy');
