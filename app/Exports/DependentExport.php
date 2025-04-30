@@ -4,8 +4,9 @@ namespace App\Exports;
 
 use App\Models\Dependent;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class DependentExport implements FromCollection
+class DependentExport implements FromCollection, WithHeadings
 {
     /**
      * @return \Illuminate\Support\Collection

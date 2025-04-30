@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MemberExport;
 use App\Models\Member;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MemberController extends Controller
 {
@@ -192,5 +195,29 @@ class MemberController extends Controller
     private function deletePhoto($path)
     {
         Storage::disk('profile_photos')->delete($path);
+    }
+
+    public function exportPDF()
+    {
+        $members = Member::all();
+        $pdf = Pdf::loadView('members.pdf-export', compact('members'));
+        return $pdf->download('associados.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new MemberExport, 'associados.xlsx');
+    }
+
+    public function exportCSV()
+    {
+        return Excel::download(new MemberExport, 'associados.csv');
+    }
+
+    public function print()
+    {
+        $members = Member::all();
+
+        return view('members.pdf-export', compact('members'));
     }
 }

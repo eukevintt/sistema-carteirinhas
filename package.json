@@ -18,6 +18,7 @@
         "flowbite": "^3.1.2",
         "jquery": "^3.7.1",
         "select2": "^4.1.0-rc.0",
-        "select2-tailwindcss-v4-theme": "^1.1.0"
+        "select2-tailwindcss-v4-theme": "^1.1.0",
+        "simple-datatables": "^10.0.0"
     }
 }
