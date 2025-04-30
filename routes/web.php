@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/novo', [MemberController::class, 'store'])->name('store');
 
             Route::get('/editar/{member}', [MemberController::class, 'edit'])->name('edit');
-            Route::patch('/editar/{member}', [MemberController::class, 'update'])->name('update');
+            Route::put('/editar/{member}', [MemberController::class, 'update'])->name('update');
 
             Route::get('/exportar/pdf', [MemberController::class, 'exportPDF'])->name('export.pdf');
             Route::get('/exportar/excel', [MemberController::class, 'exportExcel'])->name('export.excel');
@@ -76,7 +76,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/novo', [UserController::class, 'store'])->name('store');
 
             Route::get('/editar/{user}', [UserController::class, 'edit'])->name('edit');
-            Route::patch('/editar/{user}', [UserController::class, 'update'])->name('update');
+            Route::put('/editar/{user}', [UserController::class, 'update'])->name('update');
 
             Route::patch('/suspender/{user}', [UserController::class, 'suspend'])->name('suspend');
             Route::patch('/reativar/{user}', [UserController::class, 'reactivate'])->name('reactivate')->withTrashed();

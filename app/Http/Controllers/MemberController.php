@@ -80,7 +80,7 @@ class MemberController extends Controller
             'registration_number' => $request->registration_number,
         ]);
 
-        return redirect()->route('members.index')->with('success', 'Associado atualizado com sucesso!');
+        return redirect()->route('members.edit', $member->id)->with('success', 'Associado atualizado com sucesso!');
     }
 
     public function suspend(Member $member)
