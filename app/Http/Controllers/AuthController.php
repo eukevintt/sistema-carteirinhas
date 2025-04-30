@@ -95,16 +95,21 @@ class AuthController extends Controller
                     function ($attributes, $value, $fail) {
                         $member = Member::where('registration_number', $value)->first();
                         $dependent = null;
+                        $registrationNumberInUse = false;
 
-                        if (!$member) {
+                        if ($member) {
+                            $registrationNumberInUse = User::where('member_id', $member->id)->exists();
+                        } else {
                             $dependent = Dependent::where('registration_number', $value)->first();
+
+                            if ($dependent) {
+                                $registrationNumberInUse = User::where('dependent_id', $dependent->id)->exists();
+                            }
                         }
 
                         if (!$member && !$dependent) {
                             return $fail('Essa matrícula é inválida.');
                         }
-
-                        $registrationNumberInUse = User::where('member_id', $member?->id)->orWhere('dependent_id', $dependent?->id)->exists();
 
                         if ($registrationNumberInUse) {
                             return $fail('Essa matrícula já está vinculada a outro usuário.');

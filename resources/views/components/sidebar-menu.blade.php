@@ -11,6 +11,10 @@
             <li class="px-6 py-2 hover:bg-gray-50 cursor-pointer">Associados</li>
             <li class="px-6 py-2 hover:bg-gray-50 cursor-pointer">Dependentes</li>
             <li class="px-6 py-2 hover:bg-gray-50 cursor-pointer">Administração</li>
+            <form action="{{ route('auth.logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="px-6 py-2 hover:bg-gray-50 cursor-pointer">SAIR</button>
+            </form>
         </ul>
     </nav>
 </aside>

@@ -45,8 +45,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/imprimir', [MemberController::class, 'print'])->name('print');
 
             Route::patch('/suspender/{member}', [MemberController::class, 'suspend'])->name('suspend');
-            Route::patch('/reativar/{member}', [MemberController::class, 'reactivate'])->name('reactivate');
-            Route::delete('/deletar/{member}', [MemberController::class, 'destroy'])->name('destroy');
+            Route::patch('/reativar/{member}', [MemberController::class, 'reactivate'])->name('reactivate')->withTrashed();
+            Route::delete('/deletar/{member}', [MemberController::class, 'destroy'])->name('destroy')->withTrashed();
         });
 
         Route::prefix('/gestao/dependentes')->name('dependents.')->group(function () {
@@ -79,8 +79,8 @@ Route::middleware('auth')->group(function () {
             Route::patch('/editar/{user}', [UserController::class, 'update'])->name('update');
 
             Route::patch('/suspender/{user}', [UserController::class, 'suspend'])->name('suspend');
-            Route::patch('/reativar/{user}', [UserController::class, 'reactivate'])->name('reactivate');
-            Route::delete('/deletar/{user}', [UserController::class, 'destroy'])->name('destroy');
+            Route::patch('/reativar/{user}', [UserController::class, 'reactivate'])->name('reactivate')->withTrashed();
+            Route::delete('/deletar/{user}', [UserController::class, 'destroy'])->name('destroy')->withTrashed();
         });
 
         Route::prefix('/gestao/carteirinhas')->name('cards.')->group(function () {

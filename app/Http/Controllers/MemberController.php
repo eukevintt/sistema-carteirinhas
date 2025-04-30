@@ -157,7 +157,7 @@ class MemberController extends Controller
         ])->findOrFail($member->id);
 
         $member->dependents->each(function ($dependent) {
-            if ($dependent->membershipCards) {
+            if ($dependent->membershipCards()->exists()) {
                 $dependent->user->membershipCards()->forceDelete();
                 $this->deleteCardFile('dependent', $dependent->user->nickname);
             }
@@ -194,7 +194,7 @@ class MemberController extends Controller
 
     private function deletePhoto($path)
     {
-        Storage::disk('profile_photos')->delete($path);
+        Storage::delete($path);
     }
 
     public function exportPDF()

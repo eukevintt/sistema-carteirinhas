@@ -11,7 +11,7 @@
 
                     <div class="flex flex-col md:flex-row md:justify-start md:items-center gap-4">
                         <a href="{{ route('dependents.create') }}" type="button"
-                            class="bg-primary hover:bg-primary-300 text-white font-medium px-6 py-3 rounded cursor-pointer">
+                            class="bg-primary hover:bg-primary-300 text-white font-medium px-6 py-3 rounded cursor-pointer text-center">
                             Adicionar Dependente
                         </a>
                     </div>
