@@ -61,18 +61,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.open-modal').forEach(button => {
-            button.addEventListener('click', function() {
-                const act = this.dataset.act;
-                const name = this.dataset.name;
-                const url = this.dataset.urlBase;
-
-                document.getElementById(`modal-name-${act}`).textContent = name;
-                document.getElementById(`modal-form-${act}`).action = url;
-            });
-        });
-    });
-</script>

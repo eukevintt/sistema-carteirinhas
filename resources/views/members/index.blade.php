@@ -86,24 +86,28 @@
                                                     </td>
                                                     <td class="py-2 flex space-x-3">
                                                         <a href="{{ route('members.edit', $member->id) }}"
-                                                            title="Editar"
-                                                            class="text-gray-700 duration-200 hover:text-gray-900">
+                                                            data-tooltip="Editar Associado" data-tooltip-position="top"
+                                                            class="text-gray-700 duration-200 hover:text-gray-900 tooltip-trigger">
                                                             <i class="fa-solid fa-pencil"></i>
                                                         </a>
-                                                        <button title="Suspender" data-id="{{ $member->id }}"
+
+                                                        <button data-tooltip="Suspender Associado"
+                                                            data-tooltip-position="top" data-id="{{ $member->id }}"
                                                             data-name="{{ $member->name }}" data-act="suspend"
                                                             data-url-base="{{ route('members.suspend', $member->id) }}"
                                                             data-modal-target="popup-modal-suspend"
                                                             data-modal-toggle="popup-modal-suspend"
-                                                            class="text-gray-700 duration-200 hover:text-gray-900 open-modal cursor-pointer">
+                                                            class="text-gray-700 duration-200 hover:text-gray-900 open-modal cursor-pointer tooltip-trigger">
                                                             <i class="fa-solid fa-user-slash"></i>
                                                         </button>
-                                                        <button title="Excluir" data-id="{{ $member->id }}"
+
+                                                        <button data-tooltip="Deletar Associado"
+                                                            data-tooltip-position="top" data-id="{{ $member->id }}"
                                                             data-name="{{ $member->name }}" data-act="delete"
                                                             data-url-base="{{ route('members.destroy', $member->id) }}"
                                                             data-modal-target="popup-modal-delete"
                                                             data-modal-toggle="popup-modal-delete"
-                                                            class="text-gray-700 duration-200 hover:text-gray-900 open-modal cursor-pointer">
+                                                            class="text-gray-700 duration-200 hover:text-gray-900 open-modal cursor-pointer tooltip-trigger">
                                                             <i class="fa-solid fa-trash"></i>
                                                         </button>
                                                     </td>
@@ -120,7 +124,7 @@
                             @if ($inactiveMembers->isEmpty())
                                 <p class="text-gray-600">Nenhum associado inativo.</p>
                             @else
-                                <table class="w-full text-sm text-gray-700" id="table">
+                                <table class="w-full text-sm text-gray-700">
                                     <thead>
                                         <tr class="border-b">
                                             <th class="py-2 text-left">Nome</th>
@@ -140,18 +144,21 @@
                                                         method="POST">
                                                         @csrf
                                                         @method('PATCH')
-                                                        <button title="Reativar" type="submit"
-                                                            class="text-gray-600 hover:text-gray-800 cursor-pointer">
+                                                        <button data-tooltip="Reativar Associado"
+                                                            data-tooltip-position="top" type="submit"
+                                                            class="text-gray-600 hover:text-gray-800 cursor-pointer tooltip-trigger">
                                                             <i class="fa-solid fa-undo"></i>
                                                         </button>
                                                     </form>
 
-                                                    <button title="Excluir" data-id="{{ $inactiveMember->id }}"
+                                                    <button data-tooltip="Deletar Associado"
+                                                        data-tooltip-position="top"
+                                                        data-id="{{ $inactiveMember->id }}"
                                                         data-name="{{ $inactiveMember->name }}" data-act="delete"
                                                         data-url-base="{{ route('members.destroy', $inactiveMember->id) }}"
                                                         data-modal-target="popup-modal-delete"
                                                         data-modal-toggle="popup-modal-delete"
-                                                        class="text-gray-600 hover:text-gray-800 open-modal cursor-pointer">
+                                                        class="text-gray-600 hover:text-gray-800 open-modal cursor-pointer tooltip-trigger">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </td>
@@ -165,6 +172,8 @@
                     </div>
                 </div>
             </main>
+
+            <x-base-tooltip />
 
             <x-modal-confirmation titleModal="Você tem certeza que deseja suspender" act="suspend" />
             <x-modal-confirmation titleModal="Você tem certeza que deseja deletar" act="delete" />

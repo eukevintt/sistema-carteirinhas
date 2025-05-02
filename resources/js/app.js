@@ -27,7 +27,7 @@ $(document).ready(function () {
 import { DataTable } from "simple-datatables";
 
 
-new DataTable(table, {
+new DataTable("#table", {
     perPage: 10,
     perPageSelect: [5, 10, 25, 50],
     labels: {
@@ -35,10 +35,6 @@ new DataTable(table, {
         perPage: "registros por página",
         noRows: "Nenhum resultado encontrado",
         info: "Mostrando {start} a {end} de {rows} registros"
-    },
-    classes: {
-         input: "border border-primary focus:ring focus:ring-primary datatable-input",
-         dropdown: "focus:ring focus:ring-red-500 datatable-dropdown",
     },
     firstLast: false,
 });
