@@ -78,6 +78,11 @@ Route::middleware('auth')->group(function () {
             Route::get('/editar/{user}', [UserController::class, 'edit'])->name('edit');
             Route::put('/editar/{user}', [UserController::class, 'update'])->name('update');
 
+            Route::get('/exportar/pdf', [UserController::class, 'exportPDF'])->name('export.pdf');
+            Route::get('/exportar/excel', [UserController::class, 'exportExcel'])->name('export.excel');
+            Route::get('/exportar/csv', [UserController::class, 'exportCSV'])->name('export.csv');
+            Route::get('/imprimir', [UserController::class, 'print'])->name('print');
+
             Route::patch('/suspender/{user}', [UserController::class, 'suspend'])->name('suspend');
             Route::patch('/reativar/{user}', [UserController::class, 'reactivate'])->name('reactivate')->withTrashed();
             Route::delete('/deletar/{user}', [UserController::class, 'destroy'])->name('destroy')->withTrashed();

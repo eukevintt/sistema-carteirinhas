@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UserExport;
 use App\Models\Dependent;
 use App\Models\Member;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -416,6 +419,30 @@ class UserController extends Controller
 
     private function deletePhoto($path)
     {
-        Storage::disk('profile_photos')->delete($path);
+        Storage::delete($path);
+    }
+
+    public function exportPDF()
+    {
+        $users = User::whereNot('role', 'admin')->get();
+        $pdf = Pdf::loadView('users.pdf-export', compact('users'));
+        return $pdf->download('usuarios.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new UserExport, 'usuarios.xlsx');
+    }
+
+    public function exportCSV()
+    {
+        return Excel::download(new UserExport, 'usuarios.csv');
+    }
+
+    public function print()
+    {
+        $users = User::whereNot('role', 'admin')->get();
+
+        return view('users.pdf-export', compact('users'));
     }
 }

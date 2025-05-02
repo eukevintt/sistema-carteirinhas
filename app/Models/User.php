@@ -35,11 +35,11 @@ class User extends Authenticatable
 
     public function member()
     {
-        return $this->belongsTo(Member::class);
+        return $this->belongsTo(Member::class)->withTrashed();
     }
 
     public function dependent()
     {
-        return $this->belongsTo(Dependent::class);
+        return $this->belongsTo(Dependent::class)->withTrashed();
     }
 }
