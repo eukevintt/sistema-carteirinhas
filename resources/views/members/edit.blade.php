@@ -81,14 +81,6 @@
                 @endif
 
             </main>
-
-
         </div>
-
-
-
     </div>
-
-
-
 </x-layouts.layout>

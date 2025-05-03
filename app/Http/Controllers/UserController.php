@@ -173,21 +173,33 @@ class UserController extends Controller
     {
         $user->load(['member', 'dependent']);
 
-        $member = $user->member;
-        $dependent = $user->dependent;
+        $members = Member::whereNotIn('id', User::whereNotNull('member_id')->pluck('member_id')->toArray())
+            ->when($user->member_id, function ($query) use ($user) {
+                $query->orWhere('id', $user->member_id);
+            })
+            ->get();
 
-        return view('users.edit', compact('user', 'member', 'dependent'));
+        $dependents = Dependent::whereNotIn('id', User::whereNotNull('dependent_id')->pluck('dependent_id')->toArray())
+            ->when($user->dependent_id, function ($query) use ($user) {
+                $query->orWhere('id', $user->dependent_id);
+            })
+            ->get();
+
+
+        return view('users.edit', compact('user', 'members', 'dependents'));
     }
 
     public function update(Request $request, User $user)
     {
+
+        // dd($request->all());
         $request->validate(
             [
                 'nickname' => 'required|string|max:255|unique:users,nickname,' . $user->id,
                 'birth_date' => 'nullable|date',
                 'role' => 'required|in:admin,management,member,dependent',
                 'password' => 'nullable|min:5|max:32|confirmed',
-                'photo' => 'nullable|image|mimes:jpeg,png,jpg',
+                'photo' => 'nullable|image|mimes:jpg,jpeg,png',
                 'member_id' => 'nullable|exists:members,id',
                 'dependent_id' => 'nullable|exists:dependents,id',
             ],
@@ -253,7 +265,7 @@ class UserController extends Controller
             'dependent_id' => $dependentId,
         ]);
 
-        return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso.');
+        return redirect()->route('users.edit', $user->id)->with('success', 'Usuário atualizado com sucesso.');
     }
 
     public function suspend(User $user)
