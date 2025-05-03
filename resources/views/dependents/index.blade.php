@@ -107,14 +107,13 @@
                                                                 </td>
                                                                 <td class="py-2 flex space-x-3">
                                                                     <a href="{{ route('dependents.edit', $dependent->id) }}"
-                                                                        class="text-gray-600 hover:text-gray-800"
-                                                                        data-tooltip-target="tooltip-edit-{{ $dependent->id }}">
+                                                                        class="text-gray-600 hover:text-gray-800 tooltip-trigger"
+                                                                        data-tooltip="Editar Dependente"
+                                                                        data-tooltip-position="top">
                                                                         <i class="fa-solid fa-pencil"></i>
                                                                     </a>
-                                                                    <x-base-tooltip name="Dependente"
-                                                                        id="{{ $dependent->id }}" action="edit" />
 
-                                                                    <button data-tooltip="Editar Dependente"
+                                                                    <button data-tooltip="Suspender Dependente"
                                                                         data-tooltip-position="top"
                                                                         data-id="{{ $dependent->id }}"
                                                                         data-name="{{ $dependent->name }}"
@@ -126,19 +125,17 @@
                                                                         <i class="fa-solid fa-user-slash"></i>
                                                                     </button>
 
-                                                                    <button title="Excluir"
-                                                                        data-tooltip-target="tooltip-delete-{{ $dependent->id }}"
+                                                                    <button data-tooltip="Deletar Dependente"
+                                                                        data-tooltip-position="top"
                                                                         data-id="{{ $dependent->id }}"
                                                                         data-name="{{ $dependent->name }}"
                                                                         data-act="delete"
                                                                         data-url-base="{{ route('dependents.destroy', $dependent->id) }}"
                                                                         data-modal-target="popup-modal-delete"
                                                                         data-modal-toggle="popup-modal-delete"
-                                                                        class="text-gray-600 hover:text-gray-800 open-modal cursor-pointer">
+                                                                        class="text-gray-600 hover:text-gray-800 open-modal cursor-pointer tooltip-trigger">
                                                                         <i class="fa-solid fa-trash"></i>
                                                                     </button>
-                                                                    <x-base-tooltip name="Dependente"
-                                                                        id="{{ $dependent->id }}" action="delete" />
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -180,31 +177,24 @@
                                                             method="POST">
                                                             @csrf
                                                             @method('PATCH')
-                                                            <button
-                                                                data-tooltip-target="tooltip-reactivate-{{ $inactiveDependent->id }}"
-                                                                type="submit"
-                                                                class="text-gray-600 hover:text-gray-800 cursor-pointer">
+                                                            <button ddata-tooltip="Reativar Dependente"
+                                                                data-tooltip-position="top" type="submit"
+                                                                class="text-gray-600 hover:text-gray-800 cursor-pointer tooltip-trigger">
                                                                 <i class="fa-solid fa-undo"></i>
                                                             </button>
-                                                            <x-base-tooltip name="Dependente"
-                                                                id="{{ $inactiveDependent->id }}"
-                                                                action="reactivate" />
                                                         </form>
 
-                                                        <button
-                                                            data-tooltip-target="tooltip-delete-{{ $inactiveDependent->id }}"
+                                                        <button data-tooltip="Deletar Dependente"
+                                                            data-tooltip-position="top"
                                                             data-id="{{ $inactiveDependent->id }}"
                                                             data-name="{{ $inactiveDependent->name }}"
                                                             data-act="delete"
                                                             data-url-base="{{ route('dependents.destroy', $inactiveDependent->id) }}"
                                                             data-modal-target="popup-modal-delete"
                                                             data-modal-toggle="popup-modal-delete"
-                                                            class="text-gray-600 hover:text-gray-800 open-modal cursor-pointer">
+                                                            class="text-gray-600 hover:text-gray-800 open-modal cursor-pointer tooltip-trigger">
                                                             <i class="fa-solid fa-trash"></i>
                                                         </button>
-
-                                                        <x-base-tooltip name="Dependente"
-                                                            id="{{ $inactiveDependent->id }}" action="delete" />
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -217,6 +207,8 @@
                     </div>
                 </div>
             </main>
+
+            <x-base-tooltip />
 
             <x-modal-confirmation titleModal="Você tem certeza que deseja suspender" act="suspend" />
             <x-modal-confirmation titleModal="Você tem certeza que deseja deletar" act="delete" />

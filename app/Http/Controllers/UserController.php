@@ -8,6 +8,7 @@ use App\Models\Member;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -395,7 +396,7 @@ class UserController extends Controller
 
     public function getProfilePhoto(User $user)
     {
-        $auth = auth()->user();
+        $auth = Auth::user();
 
         if ($auth->id !== $user->id && !Gate::allows('admin') && !Gate::allows('management')) {
             abort(403, 'Acesso não autorizado.');

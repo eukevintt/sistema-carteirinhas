@@ -113,31 +113,39 @@
                                                     </td>
 
                                                     <td class="py-2 flex space-x-3">
-                                                        <a href="{{ route('users.edit', $user->id) }}"
-                                                            data-tooltip="Editar Usuário" data-tooltip-position="top"
+                                                        <a href="{{ route('users.show', $user->id) }}"
+                                                            data-tooltip="Detalhes" data-tooltip-position="top"
                                                             class="text-gray-700 duration-200 hover:text-gray-900 tooltip-trigger">
-                                                            <i class="fa-solid fa-pencil"></i>
-                                                        </a>
+                                                            <i class="fa-solid fa-eye"></i>
 
-                                                        <button data-tooltip="Suspender Usuário"
-                                                            data-tooltip-position="top" data-id="{{ $user->id }}"
-                                                            data-name="{{ $user->name }}" data-act="suspend"
-                                                            data-url-base="{{ route('users.suspend', $user->id) }}"
-                                                            data-modal-target="popup-modal-suspend"
-                                                            data-modal-toggle="popup-modal-suspend"
-                                                            class="text-gray-700 duration-200 hover:text-gray-900 open-modal cursor-pointer tooltip-trigger">
-                                                            <i class="fa-solid fa-user-slash"></i>
-                                                        </button>
+                                                            <a href="{{ route('users.edit', $user->id) }}"
+                                                                data-tooltip="Editar Usuário"
+                                                                data-tooltip-position="top"
+                                                                class="text-gray-700 duration-200 hover:text-gray-900 tooltip-trigger">
+                                                                <i class="fa-solid fa-pencil"></i>
+                                                            </a>
 
-                                                        <button data-tooltip="Deletar Usuário"
-                                                            data-tooltip-position="top" data-id="{{ $user->id }}"
-                                                            data-name="{{ $user->name }}" data-act="delete"
-                                                            data-url-base="{{ route('users.destroy', $user->id) }}"
-                                                            data-modal-target="popup-modal-delete"
-                                                            data-modal-toggle="popup-modal-delete"
-                                                            class="text-gray-700 duration-200 hover:text-gray-900 open-modal cursor-pointer tooltip-trigger">
-                                                            <i class="fa-solid fa-trash"></i>
-                                                        </button>
+                                                            <button data-tooltip="Suspender Usuário"
+                                                                data-tooltip-position="top"
+                                                                data-id="{{ $user->id }}"
+                                                                data-name="{{ $user->name }}" data-act="suspend"
+                                                                data-url-base="{{ route('users.suspend', $user->id) }}"
+                                                                data-modal-target="popup-modal-suspend"
+                                                                data-modal-toggle="popup-modal-suspend"
+                                                                class="text-gray-700 duration-200 hover:text-gray-900 open-modal cursor-pointer tooltip-trigger">
+                                                                <i class="fa-solid fa-user-slash"></i>
+                                                            </button>
+
+                                                            <button data-tooltip="Deletar Usuário"
+                                                                data-tooltip-position="top"
+                                                                data-id="{{ $user->id }}"
+                                                                data-name="{{ $user->name }}" data-act="delete"
+                                                                data-url-base="{{ route('users.destroy', $user->id) }}"
+                                                                data-modal-target="popup-modal-delete"
+                                                                data-modal-toggle="popup-modal-delete"
+                                                                class="text-gray-700 duration-200 hover:text-gray-900 open-modal cursor-pointer tooltip-trigger">
+                                                                <i class="fa-solid fa-trash"></i>
+                                                            </button>
                                                     </td>
                                                 </tr>
                                             @endforeach

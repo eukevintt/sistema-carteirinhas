@@ -105,10 +105,7 @@
                         </button>
 
                         @if (session('success_password'))
-                            <div
-                                class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded text-center mt-3 mb-3 text-sm">
-                                {{ session('success_password') }}
-                            </div>
+                            <x-toasts.confirmation-toast msg="{{ session('success_password') }}" />
                         @endif
                     </form>
                 </div>
@@ -140,10 +137,7 @@
                             </div>
 
                             @if (session('success_photo'))
-                                <div
-                                    class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded text-center mt-3 mb-3 text-sm">
-                                    {{ session('success_photo') }}
-                                </div>
+                                <x-toasts.confirmation-toast msg="{{ session('success_photo') }}" />
                             @endif
                         </form>
                     </div>
@@ -185,10 +179,7 @@
                             </button>
 
                             @if (session('success_info'))
-                                <div
-                                    class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded text-center mt-3 mb-3 text-sm">
-                                    {{ session('success_info') }}
-                                </div>
+                                <x-toasts.confirmation-toast msg="{{ session('success_info') }}" />
                             @endif
                         </form>
                     </div>
