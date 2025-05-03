@@ -13,7 +13,7 @@ import 'select2-tailwindcss-v4-theme/dist/select2-tailwindcss-theme.min.css';
 $(document).ready(function () {
     $('.select2').select2({
         theme: 'tailwindcss-4',
-        placeholder: 'Selecione uma opção.',
+        // placeholder: 'Selecione uma opção.',
         allowClear: true,
         width: '100%',
         language: {
@@ -41,5 +41,5 @@ new DataTable("#table", {
 
 
 
-   
+
 

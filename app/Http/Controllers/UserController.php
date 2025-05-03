@@ -35,11 +35,11 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        $user->load('member.depedents');
+        $user->load('member.dependents');
 
         $dependents = optional($user->member)->dependents ?? collect();
 
-        return view('user.details', compact('user', 'dependents'));
+        return view('users.details', compact('user', 'dependents'));
     }
 
     public function create()

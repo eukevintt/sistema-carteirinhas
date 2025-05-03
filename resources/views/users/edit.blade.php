@@ -143,12 +143,16 @@
                                 class="select2 block w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-primary focus:ring-primary focus:outline-none"
                                 x-ref="memberSelect"
                                 :disabled="role !== 'member' && role != 'management' && role != 'admin'">
+                                <option value="" {{ old('member_id', $user->member_id) ? '' : 'selected' }}>
+                                    Selecione um associado ou deixe vazio
+                                </option>
                                 @foreach ($members as $member)
                                     <option value="{{ $member->id }}"
                                         {{ old('member_id', $user->member_id) == $member->id ? 'selected' : '' }}>
                                         {{ $member->name }} ({{ $member->registration_number }})
                                     </option>
                                 @endforeach
+
                             </select>
                         </div>
 
@@ -158,12 +162,17 @@
                             <select name="dependent_id" id="dependent_id"
                                 class="select2 block w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-primary focus:ring-primary focus:outline-none"
                                 x-ref="dependentSelect" :disabled="role !== 'dependent'">
+                                <option value=""
+                                    {{ old('dependent_id', $user->dependent_id) ? '' : 'selected' }}>
+                                    Selecione um dependente ou deixe vazio
+                                </option>
                                 @foreach ($dependents as $dependent)
                                     <option value="{{ $dependent->id }}"
                                         {{ old('dependent_id', $user->dependent_id) == $dependent->id ? 'selected' : '' }}>
                                         {{ $dependent->name }} ({{ $dependent->registration_number }})
                                     </option>
                                 @endforeach
+
                             </select>
                         </div>
 
