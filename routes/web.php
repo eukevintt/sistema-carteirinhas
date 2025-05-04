@@ -25,6 +25,7 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [MainController::class, 'home'])->name('home');
+    Route::get('/administracao', [MainController::class, 'administration'])->name('administration');
 
     Route::get('/perfil', [AuthController::class, 'profile'])->name('profile.view');
     Route::patch('/perfil', [AuthController::class, 'updateProfile'])->name('profile.update');

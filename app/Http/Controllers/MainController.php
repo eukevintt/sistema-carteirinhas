@@ -28,4 +28,9 @@ class MainController extends Controller
             'totalMembershipCards'
         ));
     }
+
+    public function administration()
+    {
+        return view('administration');
+    }
 }
