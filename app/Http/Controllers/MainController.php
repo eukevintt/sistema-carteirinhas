@@ -20,12 +20,14 @@ class MainController extends Controller
         $totalMembershipCards = MembershipCard::where('expires_at', '>', $today)->where(function ($query) {
             $query->whereNotNull('member_id')->orWhereNotNull('dependent_id');
         })->count();
+        $lastsCards = MembershipCard::with(['member', 'dependent'])->orderBy('created_at', 'desc')->limit(5)->withTrashed()->get();
 
         return view('home', compact(
             'totalMembers',
             'totalDependents',
             'totalUsers',
-            'totalMembershipCards'
+            'totalMembershipCards',
+            'lastsCards'
         ));
     }
 

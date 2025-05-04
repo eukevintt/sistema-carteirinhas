@@ -1,4 +1,4 @@
-<div class="hidden md:flex items-center justify-between ">
+<div class="flex items-center justify-between ">
     <h1 class="text-2xl font-semibold">{{ $h1 }}</h1>
 
     <a href="{{ route('profile.view') }}">

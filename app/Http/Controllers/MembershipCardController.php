@@ -18,7 +18,6 @@ class MembershipCardController extends Controller
     public function index()
     {
         $cards = MembershipCard::with(['member', 'dependent'])->orderBy('expires_at', 'desc')->withTrashed()->get();
-
         return view('cards.index', compact('cards'));
     }
 
@@ -118,5 +117,22 @@ class MembershipCardController extends Controller
         }
 
         return response()->file($path);
+    }
+
+    public function download(User $user)
+    {
+        $auth = Auth::user();
+
+        if ($auth->id !== $user->id && !Gate::allows('admin') && !Gate::allows('management')) {
+            abort(403, 'Acesso não autorizado');
+        }
+
+        $path = storage_path($user->member ? 'app/' . $user->member->membershipCards()->first()->pdf_file : 'app/' . $user->dependent->membershipCards()->first()->pdf_file);
+
+        if (!file_exists($path)) {
+            abort(404, 'Carterinha não encontrada.');
+        }
+
+        return response()->download($path);
     }
 }

@@ -13,6 +13,12 @@
                     Voltar
                 </a>
 
+                @if (session('error'))
+                    <div class="mt-3 p-4 rounded-lg bg-red-100 border border-red-300 text-red-700">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 <form action="{{ route('dependents.store') }}" method="POST" class="space-y-6">
                     @csrf
 

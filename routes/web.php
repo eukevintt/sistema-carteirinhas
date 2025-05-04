@@ -102,6 +102,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/carteirinha')->name('cards.')->group(function () {
         Route::get('/{user}', [MembershipCardController::class, 'generateForMember'])->name('member.generate');
         Route::get('/dependente/{user}', [MembershipCardController::class, 'generateForDependent'])->name('dependent.generate');
+        Route::get('/download/{user}', [MembershipCardController::class, 'download'])->name('download');
     });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
