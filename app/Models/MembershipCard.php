@@ -20,7 +20,7 @@ class MembershipCard extends Model
 
     protected $casts = [
         'issued_at' => 'datetime',
-        'expired_at' => 'datetime',
+        'expires_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime'

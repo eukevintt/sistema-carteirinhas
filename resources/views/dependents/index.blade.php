@@ -206,6 +206,10 @@
                         </div>
                     </div>
                 </div>
+
+                @if (session('success'))
+                    <x-toasts.confirmation-toast msg="{{ session('success') }}" />
+                @endif
             </main>
 
             <x-base-tooltip />

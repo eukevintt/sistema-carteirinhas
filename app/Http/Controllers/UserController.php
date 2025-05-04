@@ -386,11 +386,6 @@ class UserController extends Controller
             $this->deletePhoto($user->photo);
         }
 
-        if ($user->membershipCards()->exists()) {
-            $user->membershipCards()->forceDelete();
-            $this->deleteCardFile($user->role, $user->nickname);
-        }
-
         if ($user->member) {
             $user->member->membershipCards->each->forceDelete();
             $this->deleteCardFile('member', $user->nickname);
@@ -415,7 +410,7 @@ class UserController extends Controller
 
         $user->forceDelete();
 
-        return redirect('users.index')->with('success', 'Usuário e todos os seus vínculos foram deletados com sucesso.');
+        return redirect()->route('users.index')->with('success', 'Usuário e todos os seus vínculos foram deletados com sucesso.');
     }
 
     public function getProfilePhoto(User $user)
@@ -437,9 +432,9 @@ class UserController extends Controller
 
     private function deleteCardFile($role, $nickname)
     {
-        $filename = $role === 'dependent' ? 'card_dependent_' . str_replace(' ', '_', $nickname) . '.pdf' : 'card_' . str_replace(' ', '_', $nickname) . '.pdf';
+        $filename = $role === 'dependent' ? 'membership_card_dependent_' . $nickname . '.pdf' : 'membership_card_' . $nickname . '.pdf';
 
-        Storage::disk('membership_cards')->delete($filename);
+        Storage::delete('membership_cards/' . $filename);
     }
 
     private function deletePhoto($path)

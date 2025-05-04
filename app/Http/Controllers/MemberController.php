@@ -187,9 +187,9 @@ class MemberController extends Controller
 
     private function deleteCardFile($role, $nickname)
     {
-        $filename = $role === 'dependent' ? 'card_dependent_' . str_replace(' ', '_', $nickname) . '.pdf' : 'card_' . str_replace(' ', '_', $nickname) . '.pdf';
+        $filename = $role === 'dependent' ? 'membership_card_dependent_' . $nickname . '.pdf' : 'membership_card_' . $nickname . '.pdf';
 
-        Storage::disk('membership_cards')->delete($filename);
+        Storage::delete('membership_cards/' . $filename);
     }
 
     private function deletePhoto($path)

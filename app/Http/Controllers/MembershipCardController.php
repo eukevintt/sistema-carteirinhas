@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dependent;
+use App\Models\Member;
 use App\Models\MembershipCard;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -16,7 +17,9 @@ class MembershipCardController extends Controller
 {
     public function index()
     {
-        //
+        $cards = MembershipCard::with(['member', 'dependent'])->orderBy('expires_at', 'desc')->withTrashed()->get();
+
+        return view('cards.index', compact('cards'));
     }
 
     public function destroy($id)
@@ -82,7 +85,7 @@ class MembershipCardController extends Controller
 
             $pdf = Pdf::loadView('cards.dependent-card', compact('dependent', 'member', 'user'))->setPaper([0, 0, 850, 540], 'landscape');
 
-            $filename = 'membership_card_dependent_' . str_replace(' ', '_', $dependent->nome) . '.pdf';
+            $filename = "membership_card_dependent_{$user->nickname}.pdf";
             $filePath = "membership_cards/{$filename}";
 
             Storage::put($filePath, $pdf->output());
@@ -109,7 +112,6 @@ class MembershipCardController extends Controller
         }
 
         $path = storage_path($user->member ? 'app/' . $user->member->membershipCards()->first()->pdf_file : 'app/' . $user->dependent->membershipCards()->first()->pdf_file);
-
 
         if (!file_exists($path)) {
             abort(404, 'Carterinha não encontrada.');
