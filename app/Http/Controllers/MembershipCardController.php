@@ -19,9 +19,12 @@ class MembershipCardController extends Controller
         //
     }
 
-    public function destroy()
+    public function destroy($id)
     {
-        //
+        $membershipCard = MembershipCard::findOrFail($id);
+        $membershipCard->forceDelete();
+
+        return redirect()->route('cards.index')->with('success', 'Carterinha excluída com sucesso!');
     }
 
     public function generateForMember(User $user)
