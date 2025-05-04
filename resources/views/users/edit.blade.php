@@ -185,7 +185,7 @@
 
                     <div>
                         <label for="photo" class="block mb-1 text-sm font-medium text-gray-700">Foto de
-                            Perfil*</label>
+                            Perfil</label>
                         <input type="file" name="photo" id="photo" accept="image/*"
                             class="mt-1 block w-full text-sm text-gray-700 border border-gray-300 rounded-md file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-gray-100 file:text-sm file:font-semibold cursor-pointer file:cursor-pointer">
                         <p class="text-xs text-gray-500 mt-1">

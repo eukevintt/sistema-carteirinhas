@@ -9,7 +9,7 @@
     <title>{{ $title }}</title>
 </head>
 
-<body>
+<body class="pb-16 md:pb-0">
 
     {{ $slot }}
 

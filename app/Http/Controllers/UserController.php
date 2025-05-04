@@ -47,10 +47,12 @@ class UserController extends Controller
         $usedMemberIds = User::whereNotNull('member_id')->pluck('member_id')->toArray();
         $usedDependentIds = User::whereNotNull('dependent_id')->pluck('dependent_id')->toArray();
 
+        $members = Member::all();
+
         $availableMembers = Member::whereNotIn('id', $usedMemberIds)->get();
         $availableDependents = Dependent::whereNotIn('id', $usedDependentIds)->get();
 
-        return view('users.create', compact('availableMembers', 'availableDependents'));
+        return view('users.create', compact('availableMembers', 'availableDependents', 'members'));
     }
 
     public function store(Request $request)
@@ -125,9 +127,19 @@ class UserController extends Controller
                 break;
 
             case 'new_dependent':
+                $memberFind = Member::find($request->dependent_member_id);
+                $suffix = 1;
+
+                do {
+                    $registrationNumber = $memberFind->registration_number . '-' . $suffix;
+                    $exists = Dependent::where('registration_number', $registrationNumber)->withTrashed()->exists();
+                    $suffix++;
+                } while ($exists);
+
                 $dependent = Dependent::create([
                     'name' => $request->dependent_name,
                     'member_id' => $request->dependent_member_id,
+                    'registration_number' => $registrationNumber,
                 ]);
                 $dependentId = $dependent->id;
                 break;
