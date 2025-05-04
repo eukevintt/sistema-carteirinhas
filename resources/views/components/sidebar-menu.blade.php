@@ -7,13 +7,46 @@
     </div>
     <nav class="mt-6">
         <ul>
-            <li class="px-6 py-2 bg-gray-100 font-medium">Dashboard</li>
-            <li class="px-6 py-2 hover:bg-gray-50 cursor-pointer">Associados</li>
-            <li class="px-6 py-2 hover:bg-gray-50 cursor-pointer">Dependentes</li>
-            <li class="px-6 py-2 hover:bg-gray-50 cursor-pointer">Administração</li>
+            <a href="{{ route('home') }}">
+                <li class="px-6 py-2 {{ request()->routeIs('home') ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50' }}">
+                    <i class="fa fa-home mr-2 text-primary"></i>Início
+                </li>
+            </a>
+
+            @can('managers')
+                <a href="{{ route('members.index') }}">
+                    <li
+                        class="px-6 py-2 cursor-pointer {{ request()->routeIs('members.index') ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50' }}">
+                        <i class="fa fa-user-tie mr-2 text-primary"></i>Associados
+                    </li>
+                </a>
+                <a href="{{ route('dependents.index') }}">
+                    <li
+                        class="px-6 py-2 cursor-pointer {{ request()->routeIs('dependents.index') ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50' }}">
+                        <i class="fa fa-users mr-2 text-primary"></i>Dependentes</li>
+                </a>
+                <a href="{{ route('users.index') }}">
+                    <li
+                        class="px-6 py-2 cursor-pointer {{ request()->routeIs('users.index') ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50' }}">
+                        <i class="fa fa-users-gear mr-2 text-primary"></i>Usuários</li>
+                </a>
+                <a href="{{ route('cards.index') }}">
+                    <li
+                        class="px-6 py-2 cursor-pointer {{ request()->routeIs('cards.index') ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50' }}">
+                        <i class="fa fa-id-card mr-2 text-primary"></i>Carteirinhas</li>
+                </a>
+            @endcan
+
+            <a href="{{ route('profile.view') }}">
+                <li
+                    class="px-6 py-2 cursor-pointer {{ request()->routeIs('profile.view') ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50' }}">
+                    <i class="fa fa-user mr-2 text-primary"></i>Perfil
+                </li>
+            </a>
             <form action="{{ route('auth.logout') }}" method="POST">
                 @csrf
-                <button type="submit" class="px-6 py-2 hover:bg-gray-50 cursor-pointer">SAIR</button>
+                <button type="submit" class="px-6 py-2 hover:bg-gray-50 cursor-pointer w-full text-start"><i
+                        class="fa fa-right-from-bracket mr-2 text-primary"></i>SAIR</button>
             </form>
         </ul>
     </nav>

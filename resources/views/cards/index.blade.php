@@ -1,6 +1,6 @@
 <x-layouts.layout title="Carteirinhas - Sistema Petros">
 
-    <div x-data="{ openMenu: false }" class="min-h-screen flex flex-col md:flex-row">
+    <div class="min-h-screen flex flex-col md:flex-row">
         <x-sidebar-menu />
         <div class="flex-1 flex flex-col relative">
             <x-menu-mobile menuTitle="Carteirinhas" />

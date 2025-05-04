@@ -37,6 +37,10 @@ class AppServiceProvider extends ServiceProvider
             return $user->role === 'dependent';
         });
 
+        Gate::define('managers', function ($user) {
+            return $user->role === 'admin' || $user->role === 'management';
+        });
+
         Paginator::useTailwind();
     }
 }

@@ -1,5 +1,5 @@
 <x-layouts.layout title="Meu Perfil - Sistema Petros">
-    <div x-data="{ openMenu: false }" class="min-h-screen flex flex-col md:flex-row">
+    <div class="min-h-screen flex flex-col md:flex-row">
 
         <x-sidebar-menu />
 
