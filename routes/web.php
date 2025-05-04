@@ -96,10 +96,11 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/foto-perfil/{user}', [UserController::class, 'getProfilePhoto'])->name('users.photo');
+    Route::get('/ver-carteirinha/{user}', [MembershipCardController::class, 'seeMembershipCard'])->name('users.cards');
 
     Route::prefix('/carteirinha')->name('cards.')->group(function () {
-        Route::get('/{id}', [MembershipCardController::class, 'generateForMember'])->name('member.generate');
-        Route::get('/dependente/{id}', [MembershipCardController::class, 'generateForDependent'])->name('dependent.generate');
+        Route::get('/{user}', [MembershipCardController::class, 'generateForMember'])->name('member.generate');
+        Route::get('/dependente/{user}', [MembershipCardController::class, 'generateForDependent'])->name('dependent.generate');
     });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');

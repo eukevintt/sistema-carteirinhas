@@ -14,7 +14,7 @@ class MembershipCard extends Model
         'member_id',
         'dependent_id',
         'issued_at',
-        'expired_at',
+        'expires_at',
         'pdf_file'
     ];
 
