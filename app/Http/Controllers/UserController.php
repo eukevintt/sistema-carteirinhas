@@ -391,7 +391,8 @@ class UserController extends Controller
             $this->deleteCardFile('member', $user->nickname);
 
             $user->member->dependents->each(function ($dependent) {
-                optional($dependent->user)->membershipCards->each->forceDelete();
+                optional($dependent->membershipCards)->each->forceDelete();
+                $this->deleteCardFile('dependent', $dependent->user->nickname);
                 if (optional($dependent->user)->photo) {
                     $this->deletePhoto($dependent->user->photo);
                 }

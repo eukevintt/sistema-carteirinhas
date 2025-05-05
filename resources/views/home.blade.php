@@ -14,12 +14,14 @@
 
 
                 @php
-                    $latestCard = Auth::user()->dependent
-                        ? Auth::user()->dependent->membershipCards()->latest('issued_at')->first()
-                        : Auth::user()->member->membershipCards()->latest('issued_at')->first();
+
+                    $latestCard = Auth::user()?->dependent
+                        ? Auth::user()?->dependent?->membershipCards()->latest('issued_at')->first()
+                        : Auth::user()?->member?->membershipCards()->latest('issued_at')->first();
+
                 @endphp
 
-                @if (!$latestCard)
+                @if (!$latestCard && (auth()->user()->member || auth()->user()->dependent))
                     <div class="mt-6 flex flex-col items-center space-y-3 ">
                         <h2 class="text-4xl font-bold">Bem-vindo!</h2>
                         <p class="textlg text-gray-700 text-center max-w-md">
@@ -42,10 +44,11 @@
                             <p class="text-lg font-semibold">
                                 {{ auth()->user()->dependent ? auth()->user()->dependent->name : (auth()->user()->member ? auth()->user()->member->name : auth()->user()->nickname) }}
                             </p>
-                            <p class="text-gray-500">{{ auth()->user()->birth_date->format('d/m/Y') }}</p>
+                            <p class="text-gray-500">
+                                {{ auth()->user()->birth_date ? auth()->user()->birth_date->format('d/m/Y') : '-' }}</p>
                         </div>
                     </div>
-                @elseif ($latestCard->expires_at > now())
+                @elseif (isset($latestCard) && $latestCard->expires_at > now())
                     <div class="mt-6 flex flex-col items-center space-y-3">
                         <h2 class="text-4xl font-bold">Carteirinha</h2>
                         <p class="text-lg text-gray-700 text-center max-w-md">
@@ -64,7 +67,8 @@
                                 <p class="text-lg font-semibold">
                                     {{ auth()->user()->dependent ? auth()->user()->dependent->name : (auth()->user()->member ? auth()->user()->member->name : auth()->user()->nickname) }}
                                 </p>
-                                <p class="text-gray-500">{{ auth()->user()->member ? 'Associado' : 'Dependente' }}</p>
+                                <p class="text-gray-500">{{ auth()->user()->member ? 'Associado' : 'Dependente' }}
+                                </p>
                             </div>
                         </div>
 
@@ -77,7 +81,7 @@
                             <i class="fas fa-download mr-2"></i>Baixar PDF
                         </a>
                     </div>
-                @else
+                @elseif(isset($latestCard) && $latestCard->expires_at < now())
                     <div class="mt-6 max-w-md mx-auto bg-white border border-gray-200 rounded-lg p-6 shadow space-y-6">
                         <h2 class="text-3xl font-bold text-center">Carteirinha Expirada</h2>
 

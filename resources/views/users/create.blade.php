@@ -23,7 +23,6 @@
                         enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         @csrf
 
-                        <!-- Coluna Esquerda -->
                         <div class="bg-white border border-gray-200 rounded-lg shadow p-6 space-y-6">
                             <h2 class="text-lg font-medium">Dados do Usuário</h2>
 
@@ -125,7 +124,6 @@
                             </div>
                         </div>
 
-                        <!-- Coluna Direita -->
                         <div class="bg-white border border-gray-200 rounded-lg shadow p-6 space-y-4">
                             <h2 class="text-lg font-medium">Deseja vincular?</h2>
 
@@ -146,7 +144,6 @@
                                     </div>
                                 </template>
 
-                                <!-- Associado -->
                                 <template x-if="['admin', 'management', 'member'].includes(role)">
                                     <div class="space-y-3">
                                         <div class="flex items-start space-x-3">
@@ -158,25 +155,20 @@
                                         <div x-show="option === 'new_member'" class="space-y-2">
                                             <div>
                                                 <input type="text" name="member_name" id="member_name"
+                                                    x:bind:disable="option !== 'new_member'"
                                                     class="block w-full rounded-lg border border-gray-300 px-2 py-2 focus:border-primary focus:ring-primary focus:outline-none"
                                                     placeholder="Digite o nome do Associado" />
-                                                @error('member_name')
-                                                    <div class="text-red-500 text-sm mt-1">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
+
                                             </div>
                                             <div>
                                                 <input type="text" name="member_registration_number"
+                                                    x-bind:disabled="option !== 'new_member'"
                                                     id="member_registration_number"
                                                     class="block w-full rounded-lg border border-gray-300 px-2 py-2 focus:border-primary focus:ring-primary focus:outline-none"
                                                     placeholder="Digite a matrícula do Associado" />
-                                                @error('member_registration_number')
-                                                    <div class="text-red-500 text-sm mt-1">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
+
                                             </div>
+
                                         </div>
 
                                         <div class="flex items-start space-x-3">
@@ -187,17 +179,14 @@
                                         </div>
                                         <div x-show="option === 'existing_member'">
                                             <select name="member_id" x-effect="initSelect2($el)"
+                                                x-bind:disabled="option !== 'existing_member'"
                                                 class="select2 w-full border rounded px-2 py-2">
-                                                <option disabled value="none">Selecione um Associado</option>
+                                                <option value="none">Selecione um Associado</option>
                                                 @foreach ($availableMembers as $member)
                                                     <option value="{{ $member->id }}">{{ $member->name }}</option>
                                                 @endforeach
                                             </select>
-                                            @error('member_id')
-                                                <div class="text-red-500 text-sm mt-1">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
+
                                         </div>
                                     </div>
                                 </template>
@@ -214,28 +203,20 @@
                                         <div x-show="option === 'new_dependent'" class="space-y-2">
                                             <div>
                                                 <input type="text" name="dependent_name" id="dependent_name"
+                                                    x-bind:disabled="option !== 'new_dependent'"
                                                     class="block w-full rounded-lg border border-gray-300 px-2 py-2 focus:border-primary focus:ring-primary focus:outline-none"
                                                     placeholder="Nome do dependente" />
-                                                @error('dependent_name')
-                                                    <div class="text-red-500 text-sm mt-1">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
                                             </div>
                                             <div>
                                                 <select name="dependent_member_id" x-effect="initSelect2($el)"
+                                                    x-bind:disabled="option !== 'new_dependent'"
                                                     class="select2 w-full border rounded px-4 py-2">
-                                                    <option disabled value="none">Selecione um Associado</option>
+                                                    <option value="none">Selecione um Associado</option>
                                                     @foreach ($members as $member)
                                                         <option value="{{ $member->id }}">{{ $member->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                @error('dependent_member_id')
-                                                    <div class="text-red-500 text-sm mt-1">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
                                             </div>
                                         </div>
 
@@ -249,21 +230,53 @@
                                         </div>
                                         <div x-show="option === 'existing_dependent'">
                                             <select name="dependent_id" x-effect="initSelect2($el)"
+                                                x-bind:disabled="option !== 'existing_dependent'"
                                                 class="select2 w-full border rounded px-4 py-2">
-                                                <option disabled value="none">Selecione um Dependente</option>
+                                                <option value="none">Selecione um Dependente</option>
                                                 @foreach ($availableDependents as $dependent)
                                                     <option value="{{ $dependent->id }}">{{ $dependent->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
-                                            @error('dependent_id')
-                                                <div class="text-red-500 text-sm mt-1">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
                                         </div>
                                     </div>
                                 </template>
+
+                                @error('member_name')
+                                    <div class="text-red-500 text-sm mt-1">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+
+                                @error('member_id')
+                                    <div class="text-red-500 text-sm mt-1">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+
+                                @error('dependent_name')
+                                    <div class="text-red-500 text-sm mt-1">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+
+                                @error('dependent_member_id')
+                                    <div class="text-red-500 text-sm mt-1">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+
+                                @error('dependent_id')
+                                    <div class="text-red-500 text-sm mt-1">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+
+                                @error('member_registration_number')
+                                    <div class="text-red-500 text-sm mt-1">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
 
                             @error('option')

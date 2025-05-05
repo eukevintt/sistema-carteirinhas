@@ -1,5 +1,4 @@
 <x-layouts.layout title="Carteirinhas - Sistema Petros">
-
     <div class="min-h-screen flex flex-col md:flex-row">
         <x-sidebar-menu />
         <div class="flex-1 flex flex-col relative">
@@ -10,7 +9,7 @@
 
                 @if ($cards->isEmpty())
                     <div class="flex justify-center md:justify-start mb-4">
-                        <h2 class="text-lg font-semibold text-gray-800 ">
+                        <h2 class="text-lg font-semibold text-gray-800">
                             Nenhuma carteirinha encontrada
                         </h2>
                     </div>
@@ -27,7 +26,6 @@
                         @foreach ($cardsGrouped as $key => $group)
                             @php
                                 $first = $group->first();
-
                                 $owner = $first->member ?? $first->dependent;
 
                                 if (!$owner || (method_exists($owner, 'trashed') && $owner->trashed())) {
@@ -37,27 +35,19 @@
                                 $label = "{$owner->name} ({$owner->registration_number})";
                             @endphp
 
-
-                            <div class="flex justify-between items-center mb-4">
-                                <h2 class="text-lg font-semibold text-gray-800">
-                                    {{ $label }}
-                                </h2>
-                                <a href="{{ route('cards.create', ['member_id' => $first->member_id, 'dependent_id' => $first->dependent_id]) }}"
-                                    class="text-blue-600 hover:underline tooltip-trigger"
-                                    data-tooltip="Adicionar nova carteirinha" data-tooltip-position="top">
-                                    <i class="fa-solid fa-plus"></i>
-                                </a>
+                            <div class="mb-2">
                                 <h2 id="heading-{{ $key }}">
                                     <button type="button"
-                                        class="flex items-center justify-between w-full p-4 font-medium text-left text-gray-700 bg-white border border-gray-200 hover:bg-gray-100 rounded-lg cursor-pointer"
+                                        class="flex items-center justify-between w-full p-4 font-medium text-left text-white bg-primary hover:bg-primary-dark rounded-lg cursor-pointer"
                                         data-accordion-target="#body-{{ $key }}" aria-expanded="false"
                                         aria-controls="body-{{ $key }}">
-                                        <span>{{ $label }}</span>
-                                        <svg data-accordion-icon class="w-6 h-6 rotate-180" fill="currentColor"
-                                            viewBox="0 0 20 20">
+                                        <span class="truncate">{{ $label }}</span>
+                                        <svg data-accordion-icon
+                                            class="w-6 h-6 transition-transform duration-200 transform"
+                                            fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1
-                                 1 0 111.414 1.414l-4 4a1 1 0 01-1.414
-                                 0l-4-4a1 1 0 010-1.414z" />
+                                                    1 0 111.414 1.414l-4 4a1 1 0 01-1.414
+                                                    0l-4-4a1 1 0 010-1.414z" />
                                         </svg>
                                     </button>
                                 </h2>
@@ -110,6 +100,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
                         @endforeach
                     </div>
                     @if (session('success'))
@@ -117,10 +108,8 @@
                     @endif
                 @endif
             </main>
-
         </div>
     </div>
     <x-base-tooltip />
     <x-modal-confirmation titleModal="Você tem certeza que deseja deletar" act="delete" />
-
 </x-layouts.layout>

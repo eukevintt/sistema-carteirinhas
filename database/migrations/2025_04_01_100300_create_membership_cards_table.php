@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('membership_cards', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('member_id')->constrained('members')->onDelete('cascade')->nullable();
-            $table->foreignId('dependent_id')->constrained('dependents')->onDelete('cascade')->nullable();
+            $table->foreignId('member_id')->nullable()->constrained('members')->onDelete('cascade');
+            $table->foreignId('dependent_id')->nullable()->constrained('dependents')->onDelete('cascade');
             $table->date('issued_at');
             $table->date('expires_at');
             $table->string('pdf_file');

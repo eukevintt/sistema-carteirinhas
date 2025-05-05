@@ -158,7 +158,7 @@ class MemberController extends Controller
 
         $member->dependents->each(function ($dependent) {
             if ($dependent->membershipCards()->exists()) {
-                $dependent->user->membershipCards()->forceDelete();
+                $dependent->membershipCards()->forceDelete();
                 $this->deleteCardFile('dependent', $dependent->user->nickname);
             }
 
@@ -187,6 +187,7 @@ class MemberController extends Controller
 
     private function deleteCardFile($role, $nickname)
     {
+
         $filename = $role === 'dependent' ? 'membership_card_dependent_' . $nickname . '.pdf' : 'membership_card_' . $nickname . '.pdf';
 
         Storage::delete('membership_cards/' . $filename);
