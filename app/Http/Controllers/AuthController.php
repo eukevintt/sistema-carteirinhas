@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -158,7 +159,7 @@ class AuthController extends Controller
 
         if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
             $file = $request->file('photo');
-            $filename = now()->timestamp . '.jpg';
+            $filename = Str::uuid() . '.jpg';
             $photoPath = 'profile_photos/' . $filename;
             $storagePath = storage_path('app/' . $photoPath);
 
@@ -225,7 +226,7 @@ class AuthController extends Controller
             }
 
             $file = $request->file('photo');
-            $filename = now()->timestamp . '.jpg';
+            $filename = Str::uuid() . '.jpg';
             $photoPath = 'profile_photos/' . $filename;
             $storagePath = storage_path('app/' . $photoPath);
 

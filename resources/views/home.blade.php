@@ -25,7 +25,8 @@
                     <div class="mt-6 flex flex-col items-center space-y-3 ">
                         <h2 class="text-4xl font-bold">Bem-vindo!</h2>
                         <p class="textlg text-gray-700 text-center max-w-md">
-                            Você ainda não gerou nenhuma carteirinha. Para gerar clique no botão abaixo.
+                            Você ainda não gerou nenhuma carteirinha. Para gerar clique no botão abaixo. Lembrando que a
+                            sua foto atual, será a foto que aparecerá na carteirinha.
                         </p>
 
                         <a href="{{ route('cards.member.generate', auth()->user()->id) }}"

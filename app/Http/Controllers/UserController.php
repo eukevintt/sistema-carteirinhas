@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -156,7 +157,7 @@ class UserController extends Controller
         $photoPath = null;
         if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
             $file = $request->file('photo');
-            $filename = now()->timestamp . '.jpg';
+            $filename = Str::uuid() . '.jpg';
             $photoPath = 'profile_photos/' . $filename;
             $storagePath = storage_path('app/' . $photoPath);
 
@@ -240,7 +241,7 @@ class UserController extends Controller
             }
 
             $file = $request->file('photo');
-            $filename = now()->timestamp . '.jpg';
+            $filename = Str::uuid() . '.jpg';
             $photoPath = 'profile_photos/' . $filename;
             $storagePath = storage_path('app/' . $photoPath);
 
